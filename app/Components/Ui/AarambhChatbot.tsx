@@ -145,12 +145,12 @@ export default function AarambhChatbot() {
   return (
     <>
       {/* FLOATING FOUNDER CTA + BUTTON */}
-      <div className="fixed bottom-5 right-5 z-[9999] flex flex-col items-end gap-2">
+      <div className="fixed bottom-5 right-5 z-9999 flex flex-col items-end gap-2">
         {!open && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white text-[11px] px-3 py-2 rounded-xl shadow-lg max-w-[220px] relative"
+            className="bg-white text-[11px] px-3 py-2 rounded-xl shadow-lg max-w-55 relative"
           >
             <p className="font-medium">
               👋 Hey, this is{" "}
@@ -191,7 +191,7 @@ export default function AarambhChatbot() {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed bottom-24 right-5 z-[9998] w-[320px] h-[480px] rounded-2xl bg-white shadow-2xl border flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-5 z-9998 w-[320px] h-120 rounded-2xl bg-white shadow-2xl border flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="px-4 py-3 bg-[#0B2C5F] text-white flex justify-between items-center">

@@ -17,7 +17,7 @@ export default function LandingAboutUs() {
 
       {/* 🟡 Golden Highlight */}
       <div
-        className="absolute top-28 left-0 w-full h-[3px]"
+        className="absolute top-28 left-0 w-full h-0.75"
         style={{ backgroundColor: "#dab33a" }}
       />
 
@@ -26,7 +26,7 @@ export default function LandingAboutUs() {
 
         {/* 🦚 Premium Visual */}
         <div className="flex justify-center items-center">
-          <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-[22rem] lg:h-[22rem] flex items-center justify-center">
+          <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-88 lg:h-88 flex items-center justify-center">
 
             {/* 🔄 Rotating Accent Ring */}
             <div className="absolute inset-0 animate-spin-slow">

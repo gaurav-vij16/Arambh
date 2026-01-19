@@ -6,6 +6,13 @@ body {
     Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
 }
 
+/* ================= COLORS ================= */
+:root {
+  --gold: #f5c842;
+  --blue: #1b38ba;
+  --text-light: #ffffff;
+}
+
 /* ================= INFINITE MARQUEE ================= */
 .marquee {
   display: flex;
@@ -20,15 +27,9 @@ body {
   animation: marquee 35s linear infinite;
 }
 
-
-
 @keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
 }
 
 /* ================= CLIENT CARD (VERTICAL FLIP) ================= */
@@ -48,7 +49,7 @@ body {
 }
 
 .client-card:hover .client-card-inner {
-  transform: rotateX(180deg); /* ✅ vertical flip */
+  transform: rotateX(180deg);
 }
 
 .client-face {
@@ -64,14 +65,7 @@ body {
   transform: rotateX(180deg);
 }
 
-
-:root {
-  --gold: #f5c842;
-  --blue: #1b38ba;
-  --text-light: #ffffff;
-}
-
-
+/* ================= SHAKES ================= */
 @keyframes shake {
   0% { transform: rotate(0deg); }
   20% { transform: rotate(1deg); }
@@ -84,6 +78,7 @@ body {
 .animate-shake:hover {
   animation: shake 0.4s ease-in-out;
 }
+
 @keyframes funky-shake {
   0% { transform: translate(0) rotate(0deg); }
   20% { transform: translate(-2px, 1px) rotate(-0.5deg); }
