@@ -12,54 +12,52 @@ const services: Service[] = [
 export default function LandingService() {
   return (
     <section className="w-full py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-          {services.map((service, index) => (
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className="
+              funky-hover
+              relative h-[260px] rounded-2xl overflow-hidden
+              bg-[var(--blue)]
+              shadow-[0_20px_45px_rgba(0,0,0,0.25)]
+              transition-all duration-300
+              hover:-translate-y-2
+            "
+          >
+            {/* Semi-transparent Gold diagonal */}
             <div
-              key={index}
               className="
-                funky-hover
-                relative h-[260px] rounded-2xl overflow-hidden
-                bg-[#f5c842]
-                shadow-[0_20px_45px_rgba(0,0,0,0.25)]
-                transition-all duration-300
-                hover:-translate-y-2
+                absolute top-[-40%] left-[-60%]
+                w-[140%] h-[140%]
+                bg-[var(--gold)] opacity-80
+                rotate-[-35deg]
+                z-0
               "
-            >
-              {/* Blue diagonal */}
-              <div
-                className="
-                  absolute top-[-40%] left-[-60%]
-                  w-[140%] h-[140%]
-                  bg-[var(--blue)]
-                  rotate-[-35deg]
-                  z-0
-                "
-              />
+            />
 
-              {/* Text */}
-              <div className="relative z-10 p-8">
-                <h3
-                  className="
-                    text-white text-xl font-extrabold
-                    tracking-[0.35em]
-                    drop-shadow-md
-                  "
-                >
-                  {service.title}
-                </h3>
-              </div>
+            {/* Text */}
+            <div className="relative z-10 p-8 flex items-center justify-center h-full">
+              <h3
+                className="
+                  text-[var(--blue)] text-xl font-extrabold
+                  tracking-[0.35em]
+                  drop-shadow-md
+                "
+              >
+                {service.title}
+              </h3>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
 
         {/* CTA */}
-        <div className="mt-20 flex justify-center">
+        <div className="mt-20 col-span-full flex justify-center">
           <button
             className="
               px-12 py-4 rounded-xl
               bg-[var(--blue)]
-              text-[#dab33a]
+              text-[var(--gold)]
               font-medium
               shadow-lg
               transition-all duration-300
