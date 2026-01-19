@@ -20,7 +20,7 @@ export default function LandingService() {
               className="
                 funky-hover
                 relative h-[260px] rounded-2xl overflow-hidden
-                bg-[var(--gold)]
+                bg-[#f5c842]
                 shadow-[0_20px_45px_rgba(0,0,0,0.25)]
                 transition-all duration-300
                 hover:-translate-y-2
@@ -59,7 +59,7 @@ export default function LandingService() {
             className="
               px-12 py-4 rounded-xl
               bg-[var(--blue)]
-              text-[var(--gold)]
+              text-[#dab33a]
               font-medium
               shadow-lg
               transition-all duration-300
