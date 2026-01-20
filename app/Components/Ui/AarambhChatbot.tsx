@@ -3,203 +3,173 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import chatbot from "../../../public/ChatbotImg.jpg"; // ✅ imported image
-import {
-  RotateCcw,
-  ChevronLeft,
-  Bot,
-  User,
-  Mail,
-  Briefcase,
-  Info,
-  BarChart,
-} from "lucide-react";
+import chatbot from "../../../public/ChatbotImg.jpg";
+import { RotateCcw, Bot, User } from "lucide-react";
 
 /* ---------------- TYPES ---------------- */
 
-export type BotOption = {
-  label: string;
-  response: string;
-  submenu?: BotOption[];
-  icon?: React.ReactNode;
-};
+type Sender = "bot" | "user" | "typing";
 
 type Message = {
-  sender: "bot" | "user" | "typing";
+  sender: Sender;
   text: string;
 };
 
-/* ---------------- DATA ---------------- */
-
-const MAIN_MENU: BotOption[] = [
-  {
-    label: "Send us mail",
-    icon: <Mail size={14} />,
-    response:
-      "📩 You can email us at contact@aarambh.com. Our team usually replies within 24 hours.",
-  },
-  {
-    label: "Services we provide",
-    icon: <Briefcase size={14} />,
-    response: "Here are our core services. Please choose one 👇",
-    submenu: [
-      {
-        label: "Web Development",
-        response:
-          "We build fast, scalable, and modern websites tailored to your business goals.",
-      },
-      {
-        label: "Social Media Marketing",
-        response:
-          "Grow your brand across social platforms with data-driven strategies.",
-      },
-      {
-        label: "Influencer Marketing",
-        response:
-          "We connect brands with trusted influencers to boost reach and engagement.",
-      },
-      {
-        label: "SEO",
-        response:
-          "Improve visibility, organic traffic, and rankings with our SEO expertise.",
-      },
-    ],
-  },
-  {
-    label: "About Aarambh",
-    icon: <Info size={14} />,
-    response:
-      "Aarambh is a creative digital agency where brands start & rise 🚀. We focus on innovation, growth, and measurable results.",
-  },
-  {
-    label: "Reports",
-    icon: <BarChart size={14} />,
-    response:
-      "We provide detailed performance reports covering analytics, growth metrics, and insights.",
-  },
-];
+type Flow =
+  | "ROLE"
+  | "INF_NAME"
+  | "INF_EMAIL"
+  | "INF_PHONE"
+  | "INF_INSTA"
+  | "INF_YT"
+  | "BRAND_NAME"
+  | "BRAND_EMAIL"
+  | "BRAND_PHONE"
+  | "BRAND_WEBSITE"
+  | "BRAND_BUDGET"
+  | "BRAND_SERVICE"
+  | "DONE";
 
 /* ---------------- COMPONENT ---------------- */
 
 export default function AarambhChatbot() {
   const [open, setOpen] = useState(false);
+  const [flow, setFlow] = useState<Flow>("ROLE");
+  const [input, setInput] = useState("");
+
   const [messages, setMessages] = useState<Message[]>([
-    { sender: "bot", text: "✨ Hi! I’m Aarambh Bot. How can I help you today?" },
+    { sender: "bot", text: "Welcome to Arambh " },
+    { sender: "bot", text: "What best describes you?" },
   ]);
-  const [options, setOptions] = useState<BotOption[]>(MAIN_MENU);
-  const [locked, setLocked] = useState(false);
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const dataRef = useRef<any>({});
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  /* ---------------- FUNCTIONS ---------------- */
+  /* ---------------- HELPERS ---------------- */
 
-  const respondWithTyping = (response: string, next: BotOption[]) => {
-    setLocked(true);
-    setMessages((prev) => [...prev, { sender: "typing", text: "" }]);
-
+  const botSay = (text: string, nextFlow: Flow) => {
+    setMessages((p) => [...p, { sender: "typing", text: "" }]);
     setTimeout(() => {
-      setMessages((prev) =>
-        prev
-          .filter((m) => m.sender !== "typing")
-          .concat({ sender: "bot", text: response })
+      setMessages((p) =>
+        p.filter((m) => m.sender !== "typing").concat({
+          sender: "bot",
+          text,
+        })
       );
-      setOptions(next);
-      setLocked(false);
+      setFlow(nextFlow);
     }, 600);
   };
 
-  const handleOptionClick = (opt: BotOption) => {
-    if (locked) return;
-
-    setMessages((prev) => [...prev, { sender: "user", text: opt.label }]);
-
-    if (opt.submenu) {
-      respondWithTyping(opt.response, [
-        ...opt.submenu,
-        { label: "Back to Main Menu", response: "" },
-      ]);
-    } else {
-      respondWithTyping(opt.response, [
-        { label: "Back to Main Menu", response: "" },
-      ]);
-    }
+  const userSay = (text: string) => {
+    setMessages((p) => [...p, { sender: "user", text }]);
   };
 
-  const handleBack = () => {
-    respondWithTyping("🔙 Back to main menu. How else can I help?", MAIN_MENU);
+  const handleSubmit = () => {
+    if (!input.trim()) return;
+    userSay(input);
+
+    switch (flow) {
+      case "INF_NAME":
+        dataRef.current.name = input;
+        botSay(" What’s your email address?", "INF_EMAIL");
+        break;
+      case "INF_EMAIL":
+        dataRef.current.email = input;
+        botSay(" Your phone number?", "INF_PHONE");
+        break;
+      case "INF_PHONE":
+        dataRef.current.phone = input;
+        botSay(" Instagram profile link?", "INF_INSTA");
+        break;
+      case "INF_INSTA":
+        dataRef.current.instagram = input;
+        botSay(" YouTube link (optional)", "INF_YT");
+        break;
+      case "INF_YT":
+        botSay(" Thanks! Our team will connect shortly.", "DONE");
+        break;
+
+      case "BRAND_NAME":
+        dataRef.current.name = input;
+        botSay(" Business email address?", "BRAND_EMAIL");
+        break;
+      case "BRAND_EMAIL":
+        dataRef.current.email = input;
+        botSay(" Contact number?", "BRAND_PHONE");
+        break;
+      case "BRAND_PHONE":
+        dataRef.current.phone = input;
+        botSay(" Company website (optional)", "BRAND_WEBSITE");
+        break;
+      case "BRAND_WEBSITE":
+        botSay(" Estimated campaign budget?", "BRAND_BUDGET");
+        break;
+      case "BRAND_BUDGET":
+        botSay(
+          " Which services are you interested in?\n(Digital, Influencer, Content, Production)",
+          "BRAND_SERVICE"
+        );
+        break;
+      case "BRAND_SERVICE":
+        botSay(" Perfect! We’ll reach out very soon.", "DONE");
+        break;
+    }
+
+    setInput("");
   };
 
   const resetChat = () => {
     setMessages([
-      { sender: "bot", text: "✨ Hi! I’m Aarambh Bot. How can I help you today?" },
+      { sender: "bot", text: "Welcome to Aarambh 👋" },
+      { sender: "bot", text: "What best describes you?" },
     ]);
-    setOptions(MAIN_MENU);
+    setFlow("ROLE");
+    dataRef.current = {};
   };
 
   /* ---------------- JSX ---------------- */
 
   return (
     <>
-      {/* FLOATING FOUNDER CTA + BUTTON */}
-      <div className="fixed bottom-5 right-5 z-9999 flex flex-col items-end gap-2">
-        {!open && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white text-[11px] px-3 py-2 rounded-xl shadow-lg max-w-55 relative"
-          >
-            <p className="font-medium">
-              👋 Hey, this is{" "}
-              <span className="text-[#0B2C5F] font-semibold">
-                Aarambh’s founder
-              </span>
-            </p>
-            <p className="opacity-80">
-              How can I help you? Type a message 💬
-            </p>
-            <span className="absolute -bottom-2 right-4 w-3 h-3 bg-white rotate-45 shadow-sm" />
-          </motion.div>
-        )}
-
-        {/* CHATBOT IMAGE BUTTON */}
+      {/* Floating Button */}
+      <div className="fixed bottom-5 right-5 z-50">
         <motion.button
-          onClick={() => setOpen(!open)}
-          whileHover={{ scale: 1.08 }}
+          onClick={() => setOpen((p) => !p)}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           className="relative w-16 h-16 rounded-full overflow-hidden shadow-2xl border-2 border-white bg-white"
         >
           <Image
-            src={chatbot} // ✅ using imported image
+            src={chatbot}
             alt="Aarambh Chatbot"
             fill
             className="object-cover"
-            priority
           />
-          {/* Online dot */}
           <span className="absolute bottom-1 right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
         </motion.button>
       </div>
 
-      {/* CHAT WINDOW */}
+      {/* Chat Window */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed bottom-24 right-5 z-9998 w-[320px] h-120 rounded-2xl bg-white shadow-2xl border flex flex-col overflow-hidden"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className="fixed bottom-24 right-5 w-[360px] h-[560px] bg-white rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.25)] flex flex-col overflow-hidden z-50"
           >
             {/* Header */}
-            <div className="px-4 py-3 bg-[#0B2C5F] text-white flex justify-between items-center">
+            <div className="bg-[#0B2C5F] text-white px-5 py-4 flex justify-between items-center">
               <div>
-                <h3 className="text-sm font-semibold">Aarambh Assistance</h3>
-                <p className="text-[11px] opacity-80">
-                  Where brands start & rise 🚀
+                <h3 className="text-sm font-semibold">Aarambh</h3>
+                <p className="text-[11px] opacity-80 text-[var(--gold)]">
+                  Where Brands Start and Rise
                 </p>
+
               </div>
               <button onClick={resetChat}>
                 <RotateCcw size={16} />
@@ -207,47 +177,41 @@ export default function AarambhChatbot() {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 px-3 py-2 overflow-y-auto bg-gray-50 space-y-2">
-              {messages.map((msg, i) =>
-                msg.sender === "typing" ? (
+            <div className="flex-1 bg-gray-50 p-4 space-y-5 overflow-y-auto">
+              {messages.map((m, i) =>
+                m.sender === "typing" ? (
                   <div
                     key={i}
-                    className="bg-white px-3 py-2 rounded-xl w-fit"
+                    className="bg-white px-4 py-2 rounded-2xl w-fit text-xs shadow"
                   >
-                    <div className="flex gap-1">
-                      <span className="dot" />
-                      <span className="dot" />
-                      <span className="dot" />
-                    </div>
+                    typing...
                   </div>
                 ) : (
                   <div
                     key={i}
-                    className={`flex gap-2 ${
-                      msg.sender === "bot"
+                    className={`flex items-end gap-3 ${m.sender === "bot"
                         ? "justify-start"
                         : "justify-end"
-                    }`}
+                      }`}
                   >
-                    {msg.sender === "bot" && (
-                      <div className="w-5 h-5 rounded-full bg-[#0B2C5F] flex items-center justify-center text-white">
-                        <Bot size={12} />
+                    {m.sender === "bot" && (
+                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#6A8DFF] to-[#9F6AFF] flex items-center justify-center text-white shadow-md">
+                        <Bot size={16} />
                       </div>
                     )}
 
                     <div
-                      className={`max-w-[75%] text-xs px-3 py-2 rounded-xl ${
-                        msg.sender === "bot"
-                          ? "bg-white text-black"
-                          : "bg-[#0B2C5F] text-white"
-                      }`}
+                      className={`px-4 py-2 text-xs max-w-[72%] leading-relaxed ${m.sender === "bot"
+                          ? "bg-white rounded-2xl rounded-bl-md shadow"
+                          : "bg-[#0B2C5F] text-white rounded-2xl rounded-br-md shadow"
+                        }`}
                     >
-                      {msg.text}
+                      {m.text}
                     </div>
 
-                    {msg.sender === "user" && (
-                      <div className="w-5 h-5 rounded-full bg-[#E6B84C] flex items-center justify-center text-white">
-                        <User size={12} />
+                    {m.sender === "user" && (
+                      <div className="w-9 h-9 rounded-full bg-[#0B2C5F] flex items-center justify-center text-white shadow-md">
+                        <User size={16} />
                       </div>
                     )}
                   </div>
@@ -256,74 +220,51 @@ export default function AarambhChatbot() {
               <div ref={chatEndRef} />
             </div>
 
-            {/* Options */}
-            <div className="px-3 py-2 space-y-2 border-t bg-white">
-              {options.map((opt, i) =>
-                opt.label === "Back to Main Menu" ? (
-                  <button
-                    key={i}
-                    onClick={handleBack}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs rounded-lg border text-[#0B2C5F]"
-                  >
-                    <ChevronLeft size={14} />
-                    Back to main menu
-                  </button>
-                ) : (
-                  <button
-                    key={i}
-                    disabled={locked}
-                    onClick={() => handleOptionClick(opt)}
-                    className="w-full text-xs px-3 py-2 rounded-lg bg-[#F4F6FF] text-[#0B2C5F] font-medium hover:bg-[#E8ECFF] flex items-center gap-2"
-                  >
-                    {opt.icon || <Bot size={14} />}
-                    {opt.label}
-                  </button>
-                )
-              )}
-            </div>
+            {/* Role Buttons */}
+            {flow === "ROLE" && (
+              <div className="p-4 grid grid-cols-2 gap-3 border-t bg-white">
+                <button
+                  onClick={() => {
+                    userSay("Influencer");
+                    botSay(" Great! What’s your name?", "INF_NAME");
+                  }}
+                  className="border border-[#0B2C5F] text-[#0B2C5F] text-xs py-2 rounded-full font-medium hover:bg-[#0B2C5F] hover:text-white transition"
+                >
+                  Influencer
+                </button>
+                <button
+                  onClick={() => {
+                    userSay("Brand");
+                    botSay(" Awesome! What’s your name?", "BRAND_NAME");
+                  }}
+                  className="border border-[#0B2C5F] text-[#0B2C5F] text-xs py-2 rounded-full font-medium hover:bg-[#0B2C5F] hover:text-white transition"
+                >
+                  Brand
+                </button>
+              </div>
+            )}
 
-            {/* Input (UI Only) */}
-            <div className="flex items-center gap-2 px-3 py-2 border-t bg-white">
-              <input
-                disabled
-                placeholder="Enter your message..."
-                className="flex-1 text-xs px-3 py-2 rounded-lg border bg-gray-100 cursor-not-allowed"
-              />
-              <button className="text-xs px-3 py-2 rounded-lg bg-[#0B2C5F] text-white">
-                Send
-              </button>
-            </div>
+            {/* Input */}
+            {flow !== "ROLE" && flow !== "DONE" && (
+              <div className="p-3 border-t flex gap-2 bg-white">
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+                  placeholder="Type your message..."
+                  className="flex-1 text-xs border rounded-full px-4 py-2 outline-none"
+                />
+                <button
+                  onClick={handleSubmit}
+                  className="bg-[#0B2C5F] text-white text-xs px-4 rounded-full shadow"
+                >
+                  Send
+                </button>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Typing animation */}
-      <style jsx>{`
-        .dot {
-          width: 5px;
-          height: 5px;
-          background: #0b2c5f;
-          border-radius: 50%;
-          animation: blink 1.4s infinite both;
-        }
-        .dot:nth-child(2) {
-          animation-delay: 0.2s;
-        }
-        .dot:nth-child(3) {
-          animation-delay: 0.4s;
-        }
-        @keyframes blink {
-          0% {
-            opacity: 0.2;
-          }
-          20% {
-            opacity: 1;
-          }
-          100% {
-            opacity: 0.2;
-          }
-        }
-      `}</style>
     </>
   );
 }

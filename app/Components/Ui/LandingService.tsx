@@ -18,7 +18,7 @@ export default function LandingService() {
             key={index}
             className="
               funky-hover
-              relative h-[260px] rounded-2xl overflow-hidden
+              relative h-65 rounded-2xl overflow-hidden
               bg-[var(--blue)]
               shadow-[0_20px_45px_rgba(0,0,0,0.25)]
               transition-all duration-300
