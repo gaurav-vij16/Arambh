@@ -7,6 +7,7 @@ import ContactFormUi from "./Components/Ui/ContactFormUi";
 import LandingPhoneServices from "./Components/Ui/LandingPhoneServices";
 import LandingService from "./Components/Ui/LandingService";
 import WebDevService from "./Components/Ui/WebDevService";
+import ServiceMain from "./Components/Ui/ServiceMain";
 
 export default function Home() {
   return (
@@ -14,10 +15,11 @@ export default function Home() {
       <Navbar />
       <LandingUi />
       <LandingAboutUs />
-      <LandingPhoneServices/>
-      <LandingService/>
+      <LandingPhoneServices/>     
       <ClientUi />
+      <LandingService />
       <WebDevService/>
+      <ServiceMain/>
       <Portfolio/>
       <ContactFormUi/>
     </>

@@ -27,21 +27,12 @@ export default function ClientUi() {
         </h2>
       </div>
 
-      {/* Infinite Slider */}
-      <div className="relative w-full overflow-hidden">
-        <div className="marquee">
-          <div className="marquee-track">
-            {[...clients, ...clients].map((src, i) => (
-              <ClientCard key={i} src={src} />
-            ))}
-          </div>
-
-          {/* second track */}
-          <div className="marquee-track">
-            {[...clients, ...clients].map((src, i) => (
-              <ClientCard key={`dup-${i}`} src={src} />
-            ))}
-          </div>
+      {/* Marquee */}
+      <div className="client-marquee">
+        <div className="client-track">
+          {[...clients, ...clients].map((src, i) => (
+            <ClientCard key={i} src={src} />
+          ))}
         </div>
       </div>
     </section>
