@@ -9,6 +9,7 @@ import { RotateCcw, Bot, User } from "lucide-react";
 /* ---------------- TYPES ---------------- */
 type Sender = "bot" | "user" | "typing";
 type Message = { sender: Sender; text: string };
+
 type Flow =
   | "ROLE"
   | "INF_NAME"
@@ -29,6 +30,8 @@ export default function AarambhChatbot() {
   const [open, setOpen] = useState(false);
   const [flow, setFlow] = useState<Flow>("ROLE");
   const [input, setInput] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
   const [messages, setMessages] = useState<Message[]>([
     { sender: "bot", text: "Welcome to Arambh 👋" },
     { sender: "bot", text: "What best describes you?" },
@@ -56,27 +59,34 @@ export default function AarambhChatbot() {
     setMessages((prev) => [...prev, { sender: "user", text }]);
   };
 
-  // ---------------- Submit to Google Sheets ----------------
+  /* ---------------- SUBMIT TO GOOGLE SHEETS ---------------- */
   const submitToSheet = async () => {
-    const payload: any = {};
+    if (submitting) return;
+    setSubmitting(true);
 
-    if (dataRef.current.role === "Influencer" || flow.startsWith("INF_")) {
-      payload.role = "Influencer";
-      payload.name = dataRef.current.name ?? "";
-      payload.email = dataRef.current.email ?? "";
-      payload.phone = dataRef.current.phone ?? "";
-      payload.instagram = dataRef.current.instagram ?? "";
-      payload.youtube = dataRef.current.youtube ?? "";
+    let payload: any = {};
+
+    if (dataRef.current.role === "Influencer") {
+      payload = {
+        role: "Influencer",
+        name: dataRef.current.name || "",
+        email: dataRef.current.email || "",
+        phone: dataRef.current.phone || "",
+        instagram: dataRef.current.instagram || "",
+        youtube: dataRef.current.youtube || "",
+      };
     }
 
-    if (dataRef.current.role === "Brand" || flow.startsWith("BRAND_")) {
-      payload.role = "Brand";
-      payload.name = dataRef.current.name ?? "";
-      payload.email = dataRef.current.email ?? "";
-      payload.phone = dataRef.current.phone ?? "";
-      payload.website = dataRef.current.website ?? "";
-      payload.budget = dataRef.current.budget ?? "";
-      payload.services = dataRef.current.services ?? "";
+    if (dataRef.current.role === "Brand") {
+      payload = {
+        role: "Brand",
+        name: dataRef.current.name || "",
+        email: dataRef.current.email || "",
+        phone: dataRef.current.phone || "",
+        website: dataRef.current.website || "",
+        budget: dataRef.current.budget || "",
+        services: dataRef.current.services || "",
+      };
     }
 
     try {
@@ -84,116 +94,104 @@ export default function AarambhChatbot() {
         "https://script.google.com/macros/s/AKfycbzETtPMT8o7wF3ArF-CpaUj14DL1C9nUmnUfOk_0hbrxeMUYpfJt1bJU-e-rLId0Hfx/exec",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          body: JSON.stringify(payload), // ⚠️ NO HEADERS
         }
       );
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const result = await res.json();
+      if (!result.success) throw new Error(result.error);
 
-      if (!result.success) throw new Error(result.error || "Unknown error");
-
-      console.log("Data sent to Google Sheet ✅");
-    } catch (err: any) {
-      console.error("Error sending to Google Sheet:", err);
-
-      // Show message in chat
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: "⚠️ Failed to send your data. Please try again." },
+        {
+          sender: "bot",
+          text: "✅ Details received! Our team will contact you shortly.",
+        },
       ]);
+    } catch (err) {
+      console.error(err);
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: "⚠️ Something went wrong. Please try again later.",
+        },
+      ]);
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  // ---------------- Handle user input ----------------
+  /* ---------------- HANDLE USER INPUT ---------------- */
   const handleSubmit = () => {
-    if (!input.trim()) return;
+  if (!input.trim()) return;
 
-    // Save input
-    switch (flow) {
-      case "INF_NAME":
-        dataRef.current.name = input;
-        break;
-      case "INF_EMAIL":
-        dataRef.current.email = input;
-        break;
-      case "INF_PHONE":
-        dataRef.current.phone = input;
-        break;
-      case "INF_INSTA":
-        dataRef.current.instagram = input;
-        break;
-      case "INF_YT":
-        dataRef.current.youtube = input;
-        break;
-      case "BRAND_NAME":
-        dataRef.current.name = input;
-        break;
-      case "BRAND_EMAIL":
-        dataRef.current.email = input;
-        break;
-      case "BRAND_PHONE":
-        dataRef.current.phone = input;
-        break;
-      case "BRAND_WEBSITE":
-        dataRef.current.website = input;
-        break;
-      case "BRAND_BUDGET":
-        dataRef.current.budget = input;
-        break;
-      case "BRAND_SERVICE":
-        dataRef.current.services = input;
-        break;
-    }
-
-    userSay(input);
-
-    // Next bot prompt
-    switch (flow) {
-      case "INF_NAME":
-        botSay("What’s your email address?", "INF_EMAIL");
-        break;
-      case "INF_EMAIL":
-        botSay("Your phone number?", "INF_PHONE");
-        break;
-      case "INF_PHONE":
-        botSay("Instagram profile link?", "INF_INSTA");
-        break;
-      case "INF_INSTA":
-        botSay("YouTube link (optional)", "INF_YT");
-        break;
-      case "INF_YT":
-        botSay("Thanks! Our team will connect shortly.", "DONE");
-        submitToSheet();
-        break;
-
-      case "BRAND_NAME":
-        botSay("Business email address?", "BRAND_EMAIL");
-        break;
-      case "BRAND_EMAIL":
-        botSay("Contact number?", "BRAND_PHONE");
-        break;
-      case "BRAND_PHONE":
-        botSay("Company website (optional)", "BRAND_WEBSITE");
-        break;
-      case "BRAND_WEBSITE":
-        botSay("Estimated campaign budget?", "BRAND_BUDGET");
-        break;
-      case "BRAND_BUDGET":
-        botSay(
-          "Which services are you interested in?\n(Digital, Influencer, Content, Production)",
-          "BRAND_SERVICE"
-        );
-        break;
-      case "BRAND_SERVICE":
-        botSay("Perfect! We’ll reach out very soon.", "DONE");
-        submitToSheet();
-        break;
-    }
-
-    setInput("");
+  const map: Record<Flow, string> = {
+    INF_NAME: "name",
+    INF_EMAIL: "email",
+    INF_PHONE: "phone",
+    INF_INSTA: "instagram",
+    INF_YT: "youtube",
+    BRAND_NAME: "name",
+    BRAND_EMAIL: "email",
+    BRAND_PHONE: "phone",
+    BRAND_WEBSITE: "website",
+    BRAND_BUDGET: "budget",
+    BRAND_SERVICE: "services",
+    ROLE: "",
+    DONE: "",
   };
+
+  const key = map[flow];
+  if (key) dataRef.current[key] = input;
+
+  userSay(input);
+
+  // ✅ CLEAR INPUT IMMEDIATELY
+  setInput("");
+
+  switch (flow) {
+    case "INF_NAME":
+      botSay("What’s your email address?", "INF_EMAIL");
+      break;
+    case "INF_EMAIL":
+      botSay("Your phone number?", "INF_PHONE");
+      break;
+    case "INF_PHONE":
+      botSay("Instagram profile link?", "INF_INSTA");
+      break;
+    case "INF_INSTA":
+      botSay("YouTube link (optional)", "INF_YT");
+      break;
+    case "INF_YT":
+      botSay("Thanks! Our team will connect shortly.", "DONE");
+      submitToSheet();
+      break;
+
+    case "BRAND_NAME":
+      botSay("Business email address?", "BRAND_EMAIL");
+      break;
+    case "BRAND_EMAIL":
+      botSay("Contact number?", "BRAND_PHONE");
+      break;
+    case "BRAND_PHONE":
+      botSay("Company website (optional)", "BRAND_WEBSITE");
+      break;
+    case "BRAND_WEBSITE":
+      botSay("Estimated campaign budget?", "BRAND_BUDGET");
+      break;
+    case "BRAND_BUDGET":
+      botSay(
+        "Which services are you interested in?\n(Digital, Influencer, Content, Production)",
+        "BRAND_SERVICE"
+      );
+      break;
+    case "BRAND_SERVICE":
+      botSay("Perfect! We’ll reach out very soon.", "DONE");
+      submitToSheet();
+      break;
+  }
+};
 
   const resetChat = () => {
     setMessages([
@@ -202,10 +200,11 @@ export default function AarambhChatbot() {
     ]);
     setFlow("ROLE");
     dataRef.current = {};
+    setSubmitting(false);
   };
 
-  /* ---------------- JSX ---------------- */
-  return (
+  /* ---------------- JSX (UNCHANGED UI) ---------------- */
+   return (
     <>
       {/* Floating Button + Founder Welcome */}
       <div className="fixed bottom-5 right-5 z-50">
