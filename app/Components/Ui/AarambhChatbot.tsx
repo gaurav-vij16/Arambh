@@ -7,14 +7,8 @@ import chatbot from "../../../public/ChatbotImg.jpg";
 import { RotateCcw, Bot, User } from "lucide-react";
 
 /* ---------------- TYPES ---------------- */
-
 type Sender = "bot" | "user" | "typing";
-
-type Message = {
-  sender: Sender;
-  text: string;
-};
-
+type Message = { sender: Sender; text: string };
 type Flow =
   | "ROLE"
   | "INF_NAME"
@@ -31,14 +25,12 @@ type Flow =
   | "DONE";
 
 /* ---------------- COMPONENT ---------------- */
-
 export default function AarambhChatbot() {
   const [open, setOpen] = useState(false);
   const [flow, setFlow] = useState<Flow>("ROLE");
   const [input, setInput] = useState("");
-
   const [messages, setMessages] = useState<Message[]>([
-    { sender: "bot", text: "Welcome to Arambh " },
+    { sender: "bot", text: "Welcome to Arambh 👋" },
     { sender: "bot", text: "What best describes you?" },
   ]);
 
@@ -50,72 +42,153 @@ export default function AarambhChatbot() {
   }, [messages]);
 
   /* ---------------- HELPERS ---------------- */
-
   const botSay = (text: string, nextFlow: Flow) => {
-    setMessages((p) => [...p, { sender: "typing", text: "" }]);
+    setMessages((prev) => [...prev, { sender: "typing", text: "" }]);
     setTimeout(() => {
-      setMessages((p) =>
-        p.filter((m) => m.sender !== "typing").concat({
-          sender: "bot",
-          text,
-        })
+      setMessages((prev) =>
+        prev.filter((m) => m.sender !== "typing").concat({ sender: "bot", text })
       );
       setFlow(nextFlow);
     }, 600);
   };
 
   const userSay = (text: string) => {
-    setMessages((p) => [...p, { sender: "user", text }]);
+    setMessages((prev) => [...prev, { sender: "user", text }]);
   };
 
+  // ---------------- Submit to Google Sheets ----------------
+  const submitToSheet = async () => {
+    const payload: any = {};
+
+    if (dataRef.current.role === "Influencer" || flow.startsWith("INF_")) {
+      payload.role = "Influencer";
+      payload.name = dataRef.current.name ?? "";
+      payload.email = dataRef.current.email ?? "";
+      payload.phone = dataRef.current.phone ?? "";
+      payload.instagram = dataRef.current.instagram ?? "";
+      payload.youtube = dataRef.current.youtube ?? "";
+    }
+
+    if (dataRef.current.role === "Brand" || flow.startsWith("BRAND_")) {
+      payload.role = "Brand";
+      payload.name = dataRef.current.name ?? "";
+      payload.email = dataRef.current.email ?? "";
+      payload.phone = dataRef.current.phone ?? "";
+      payload.website = dataRef.current.website ?? "";
+      payload.budget = dataRef.current.budget ?? "";
+      payload.services = dataRef.current.services ?? "";
+    }
+
+    try {
+      const res = await fetch(
+        "https://script.google.com/macros/s/AKfycbzETtPMT8o7wF3ArF-CpaUj14DL1C9nUmnUfOk_0hbrxeMUYpfJt1bJU-e-rLId0Hfx/exec",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const result = await res.json();
+
+      if (!result.success) throw new Error(result.error || "Unknown error");
+
+      console.log("Data sent to Google Sheet ✅");
+    } catch (err: any) {
+      console.error("Error sending to Google Sheet:", err);
+
+      // Show message in chat
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "⚠️ Failed to send your data. Please try again." },
+      ]);
+    }
+  };
+
+  // ---------------- Handle user input ----------------
   const handleSubmit = () => {
     if (!input.trim()) return;
-    userSay(input);
 
+    // Save input
     switch (flow) {
       case "INF_NAME":
         dataRef.current.name = input;
-        botSay(" What’s your email address?", "INF_EMAIL");
         break;
       case "INF_EMAIL":
         dataRef.current.email = input;
-        botSay(" Your phone number?", "INF_PHONE");
         break;
       case "INF_PHONE":
         dataRef.current.phone = input;
-        botSay(" Instagram profile link?", "INF_INSTA");
         break;
       case "INF_INSTA":
         dataRef.current.instagram = input;
-        botSay(" YouTube link (optional)", "INF_YT");
         break;
       case "INF_YT":
-        botSay(" Thanks! Our team will connect shortly.", "DONE");
+        dataRef.current.youtube = input;
         break;
-
       case "BRAND_NAME":
         dataRef.current.name = input;
-        botSay(" Business email address?", "BRAND_EMAIL");
         break;
       case "BRAND_EMAIL":
         dataRef.current.email = input;
-        botSay(" Contact number?", "BRAND_PHONE");
         break;
       case "BRAND_PHONE":
         dataRef.current.phone = input;
-        botSay(" Company website (optional)", "BRAND_WEBSITE");
         break;
       case "BRAND_WEBSITE":
-        botSay(" Estimated campaign budget?", "BRAND_BUDGET");
+        dataRef.current.website = input;
+        break;
+      case "BRAND_BUDGET":
+        dataRef.current.budget = input;
+        break;
+      case "BRAND_SERVICE":
+        dataRef.current.services = input;
+        break;
+    }
+
+    userSay(input);
+
+    // Next bot prompt
+    switch (flow) {
+      case "INF_NAME":
+        botSay("What’s your email address?", "INF_EMAIL");
+        break;
+      case "INF_EMAIL":
+        botSay("Your phone number?", "INF_PHONE");
+        break;
+      case "INF_PHONE":
+        botSay("Instagram profile link?", "INF_INSTA");
+        break;
+      case "INF_INSTA":
+        botSay("YouTube link (optional)", "INF_YT");
+        break;
+      case "INF_YT":
+        botSay("Thanks! Our team will connect shortly.", "DONE");
+        submitToSheet();
+        break;
+
+      case "BRAND_NAME":
+        botSay("Business email address?", "BRAND_EMAIL");
+        break;
+      case "BRAND_EMAIL":
+        botSay("Contact number?", "BRAND_PHONE");
+        break;
+      case "BRAND_PHONE":
+        botSay("Company website (optional)", "BRAND_WEBSITE");
+        break;
+      case "BRAND_WEBSITE":
+        botSay("Estimated campaign budget?", "BRAND_BUDGET");
         break;
       case "BRAND_BUDGET":
         botSay(
-          " Which services are you interested in?\n(Digital, Influencer, Content, Production)",
+          "Which services are you interested in?\n(Digital, Influencer, Content, Production)",
           "BRAND_SERVICE"
         );
         break;
       case "BRAND_SERVICE":
-        botSay(" Perfect! We’ll reach out very soon.", "DONE");
+        botSay("Perfect! We’ll reach out very soon.", "DONE");
+        submitToSheet();
         break;
     }
 
@@ -124,7 +197,7 @@ export default function AarambhChatbot() {
 
   const resetChat = () => {
     setMessages([
-      { sender: "bot", text: "Welcome to Aarambh 👋" },
+      { sender: "bot", text: "Welcome to Arambh 👋" },
       { sender: "bot", text: "What best describes you?" },
     ]);
     setFlow("ROLE");
@@ -132,25 +205,36 @@ export default function AarambhChatbot() {
   };
 
   /* ---------------- JSX ---------------- */
-
   return (
     <>
-      {/* Floating Button */}
+      {/* Floating Button + Founder Welcome */}
       <div className="fixed bottom-5 right-5 z-50">
-        <motion.button
-          onClick={() => setOpen((p) => !p)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative w-16 h-16 rounded-full overflow-hidden shadow-2xl border-2 border-white bg-white"
-        >
-          <Image
-            src={chatbot}
-            alt="Aarambh Chatbot"
-            fill
-            className="object-cover"
-          />
-          <span className="absolute bottom-1 right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
-        </motion.button>
+        <motion.div className="relative">
+          {!open && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="absolute bottom-20 right-0 w-[240px] p-4 rounded-2xl bg-[#06255d]/95 text-white border border-[var(--gold)]/40 shadow-glow peacock-grain"
+            >
+              <p className="text-xs leading-relaxed">
+                Hi! I’m the founder of{" "}
+                <span className="text-[var(--gold)] font-semibold">Arambh</span>
+                . <br />
+                How can I help you today?
+              </p>
+            </motion.div>
+          )}
+
+          <motion.button
+            onClick={() => setOpen((p) => !p)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-glow bg-[#06255d]"
+          >
+            <Image src={chatbot} alt="Arambh Chatbot" fill className="object-cover" />
+            <span className="absolute bottom-1 right-1 w-3 h-3 bg-green-400 border-2 border-white rounded-full animate-pulse" />
+          </motion.button>
+        </motion.div>
       </div>
 
       {/* Chat Window */}
@@ -160,58 +244,48 @@ export default function AarambhChatbot() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-5 w-[360px] h-[560px] bg-white rounded-3xl shadow-[0_30px_70px_rgba(0,0,0,0.25)] flex flex-col overflow-hidden z-50"
+            className="fixed bottom-24 right-5 w-[360px] h-[560px] rounded-3xl bg-[#06255d]/95 border border-white/20 shadow-glow flex flex-col overflow-hidden z-50 peacock-grain"
           >
             {/* Header */}
-            <div className="bg-[#0B2C5F] text-white px-5 py-4 flex justify-between items-center">
+            <div className="px-5 py-4 flex justify-between items-center border-b border-white/10">
               <div>
-                <h3 className="text-sm font-semibold">Aarambh</h3>
-                <p className="text-[11px] opacity-80 text-[var(--gold)]">
-                  Where Brands Start and Rise
-                </p>
-
+                <h3 className="text-sm font-semibold text-white">Arambh</h3>
+                <p className="text-[11px] text-[var(--gold)]">Where Brands Start and Rise</p>
               </div>
-              <button onClick={resetChat}>
+              <button onClick={resetChat} className="text-white/70 hover:text-white">
                 <RotateCcw size={16} />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 bg-gray-50 p-4 space-y-5 overflow-y-auto">
+            <div className="flex-1 p-4 space-y-4 overflow-y-auto">
               {messages.map((m, i) =>
                 m.sender === "typing" ? (
-                  <div
-                    key={i}
-                    className="bg-white px-4 py-2 rounded-2xl w-fit text-xs shadow"
-                  >
-                    typing...
+                  <div key={i} className="text-xs text-white/70 animate-pulse">
+                    typing…
                   </div>
                 ) : (
                   <div
                     key={i}
-                    className={`flex items-end gap-3 ${m.sender === "bot"
-                        ? "justify-start"
-                        : "justify-end"
-                      }`}
+                    className={`flex gap-3 ${m.sender === "bot" ? "justify-start" : "justify-end"}`}
                   >
                     {m.sender === "bot" && (
-                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#6A8DFF] to-[#9F6AFF] flex items-center justify-center text-white shadow-md">
-                        <Bot size={16} />
+                      <div className="w-8 h-8 rounded-full bg-[#06255d] border border-[var(--gold)]/40 flex items-center justify-center text-[var(--gold)]">
+                        <Bot size={14} />
                       </div>
                     )}
-
                     <div
-                      className={`px-4 py-2 text-xs max-w-[72%] leading-relaxed ${m.sender === "bot"
-                          ? "bg-white rounded-2xl rounded-bl-md shadow"
-                          : "bg-[#0B2C5F] text-white rounded-2xl rounded-br-md shadow"
-                        }`}
+                      className={`px-4 py-2 text-xs max-w-[72%] ${
+                        m.sender === "bot"
+                          ? "bg-white/95 text-[#06255d] rounded-2xl rounded-bl-md"
+                          : "bg-[#06255d] text-white border border-[var(--gold)]/40 rounded-2xl rounded-br-md"
+                      }`}
                     >
                       {m.text}
                     </div>
-
                     {m.sender === "user" && (
-                      <div className="w-9 h-9 rounded-full bg-[#0B2C5F] flex items-center justify-center text-white shadow-md">
-                        <User size={16} />
+                      <div className="w-8 h-8 rounded-full bg-[#06255d] border border-[var(--gold)]/40 flex items-center justify-center text-[var(--gold)]">
+                        <User size={14} />
                       </div>
                     )}
                   </div>
@@ -222,41 +296,36 @@ export default function AarambhChatbot() {
 
             {/* Role Buttons */}
             {flow === "ROLE" && (
-              <div className="p-4 grid grid-cols-2 gap-3 border-t bg-white">
-                <button
-                  onClick={() => {
-                    userSay("Influencer");
-                    botSay(" Great! What’s your name?", "INF_NAME");
-                  }}
-                  className="border border-[#0B2C5F] text-[#0B2C5F] text-xs py-2 rounded-full font-medium hover:bg-[#0B2C5F] hover:text-white transition"
-                >
-                  Influencer
-                </button>
-                <button
-                  onClick={() => {
-                    userSay("Brand");
-                    botSay(" Awesome! What’s your name?", "BRAND_NAME");
-                  }}
-                  className="border border-[#0B2C5F] text-[#0B2C5F] text-xs py-2 rounded-full font-medium hover:bg-[#0B2C5F] hover:text-white transition"
-                >
-                  Brand
-                </button>
+              <div className="p-4 grid grid-cols-2 gap-3 border-t border-white/10">
+                {["Influencer", "Brand"].map((r) => (
+                  <button
+                    key={r}
+                    onClick={() => {
+                      userSay(r);
+                      dataRef.current.role = r;
+                      botSay("Great! What’s your name?", r === "Brand" ? "BRAND_NAME" : "INF_NAME");
+                    }}
+                    className="text-xs py-2 rounded-full border border-[var(--gold)]/50 text-[var(--gold)] hover:bg-[var(--gold)] hover:text-[#06255d] transition"
+                  >
+                    {r}
+                  </button>
+                ))}
               </div>
             )}
 
             {/* Input */}
             {flow !== "ROLE" && flow !== "DONE" && (
-              <div className="p-3 border-t flex gap-2 bg-white">
+              <div className="p-3 border-t border-white/10 flex gap-2">
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                  placeholder="Type your message..."
-                  className="flex-1 text-xs border rounded-full px-4 py-2 outline-none"
+                  placeholder="Type your message…"
+                  className="flex-1 text-xs rounded-full px-4 py-2 bg-white/90 outline-none"
                 />
                 <button
                   onClick={handleSubmit}
-                  className="bg-[#0B2C5F] text-white text-xs px-4 rounded-full shadow"
+                  className="px-4 text-xs rounded-full bg-[var(--gold)] text-[#06255d] font-medium"
                 >
                   Send
                 </button>
@@ -265,6 +334,29 @@ export default function AarambhChatbot() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Styles */}
+      <style jsx>{`
+        .shadow-glow {
+          box-shadow: 0 20px 50px rgba(6, 37, 93, 0.6),
+            0 0 25px rgba(212, 175, 55, 0.25);
+        }
+        .peacock-grain::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: repeating-radial-gradient(
+            circle at 20% 30%,
+            rgba(255, 255, 255, 0.035) 0,
+            rgba(255, 255, 255, 0.035) 1px,
+            transparent 2px,
+            transparent 6px
+          );
+          opacity: 0.25;
+          pointer-events: none;
+          mix-blend-mode: overlay;
+        }
+      `}</style>
     </>
   );
 }
