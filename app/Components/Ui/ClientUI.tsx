@@ -19,7 +19,7 @@ export default function ClientUi() {
     <section className="w-full bg-white py-24 overflow-hidden">
       {/* Heading */}
       <div className="text-center mb-14">
-        <p className="tracking-[0.35em] font-bold text-sm text-[#dab33a] uppercase mb-3">
+        <p className="tracking-[0.35em] font-bold   text-2xl text-[#dab33a] uppercase mb-3">
           Our Clients
         </p>
         <h2 className="text-3xl md:text-5xl font-semibold text-[#0c3269]">
