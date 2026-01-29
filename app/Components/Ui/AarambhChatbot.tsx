@@ -216,7 +216,7 @@ export default function AarambhChatbot() {
               className="absolute bottom-20 right-0 w-[240px] p-4 rounded-2xl bg-[#06255d]/95 text-white border border-[var(--gold)]/40 shadow-glow peacock-grain"
             >
               <p className="text-xs leading-relaxed">
-                Hi! I’m the founder of{" "}
+                Hi! I’m the Co-Founder of{" "}
                 <span className="text-[var(--gold)] font-semibold">Arambh</span>
                 . <br />
                 How can I help you today?
