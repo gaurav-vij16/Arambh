@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { servicesData } from "@/app/data/serviceData";
+import Image from "next/image";
+import bg from "../../../public/clients/Image4.jpg";
 
 type PageProps = {
   params: Promise<{
@@ -9,68 +11,77 @@ type PageProps = {
 
 export default async function ServicePage({ params }: PageProps) {
   const { slug } = await params;
+  const service = servicesData.find((item) => item.slug === slug);
 
-  const service = servicesData.find(
-    (item) => item.slug === slug
-  );
-
-  if (!service) {
-    notFound();
-  }
+  if (!service) notFound();
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#03244f] via-[#06255d] to-[#03244f] text-white">
+    <main className="bg-[#f8fafc] text-[#06255d]">
       {/* HERO */}
-      <section className="py-32 px-6 text-center">
-        <h1 className="text-5xl md:text-6xl font-semibold text-[var(--gold)]">
-          {service.title}
-        </h1>
-        <p className="mt-6 text-xl text-white/80">
-          {service.tagline}
-        </p>
+      <section className="relative py-40 px-6 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src={bg}
+            alt="Hero Background"
+            fill
+            className="object-cover object-center"
+          />
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
+
+        {/* Hero Text */}
+        <div className="relative z-10 text-center">
+          <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-white">
+            {service.title}
+          </h1>
+
+          <p className="mt-8 max-w-2xl mx-auto text-xl text-white/80">
+            {service.tagline}
+          </p>
+        </div>
       </section>
 
       {/* DESCRIPTION */}
-      <section className="px-6 pb-24 text-center">
-        <p className="max-w-4xl mx-auto text-lg text-white/75">
+      <section className="py-28 px-6 bg-white">
+        <p className="max-w-4xl mx-auto text-center text-lg md:text-xl leading-relaxed text-[#475569]">
           {service.description}
         </p>
       </section>
 
       {/* HIGHLIGHTS */}
-      <section className="px-6 pb-24">
-        <h2 className="text-3xl font-semibold text-center text-[var(--gold)] mb-12">
+      <section className="py-32 px-6 bg-[#f8fafc]">
+        <h2 className="text-3xl md:text-4xl font-semibold text-center mb-20">
           What We Focus On
         </h2>
 
-        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-12">
           {service.highlights.map((item, i) => (
             <div
               key={i}
-              className="rounded-2xl p-6 bg-white text-[#03244f] shadow-lg"
+              className="rounded-2xl p-10 bg-white border border-slate-200 shadow-sm hover:shadow-lg transition"
             >
-              {item}
+              <p className="text-lg leading-relaxed text-slate-700">{item}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* OFFERINGS */}
-      <section className="px-6 pb-32">
-        <h2 className="text-3xl font-semibold text-center text-[var(--gold)] mb-12">
+      <section className="py-36 px-6 bg-white">
+        <h2 className="text-3xl md:text-4xl font-semibold text-center mb-24">
           Our Offerings
         </h2>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-14">
           {service.offerings.map((offering, i) => (
             <div
               key={i}
-              className="rounded-2xl p-8 bg-white text-[#03244f] shadow-xl hover:-translate-y-2 transition"
+              className="rounded-3xl p-12 bg-[#f8fafc] border border-slate-200 hover:border-[#06255d] hover:-translate-y-3 transition-all duration-300"
             >
-              <h3 className="font-semibold mb-3">
-                {offering.title}
-              </h3>
-              <p className="text-sm opacity-80">
+              <h3 className="text-2xl font-semibold mb-6">{offering.title}</h3>
+              <p className="text-base leading-relaxed text-slate-600">
                 {offering.description}
               </p>
             </div>
@@ -79,23 +90,21 @@ export default async function ServicePage({ params }: PageProps) {
       </section>
 
       {/* CTA */}
-      <section className="pb-32 px-6 text-center">
-        <div className="max-w-4xl mx-auto rounded-3xl p-12 bg-gradient-to-r from-[#1b38ba] to-[#2563eb] shadow-2xl">
-          <h3 className="text-3xl font-semibold">
-            Ready to get started?
-          </h3>
+      <section className="py-40 px-6 bg-[#06255d] text-white text-center">
+        <h3 className="text-4xl md:text-5xl font-semibold">
+          Ready to get started?
+        </h3>
 
-          <p className="mt-4 text-white/85">
-            Let’s turn strategy into measurable growth.
-          </p>
+        <p className="mt-8 text-lg text-white/80">
+          Let’s turn strategy into measurable growth.
+        </p>
 
-          <a
-            href={service.cta.link}
-            className="inline-block mt-8 px-14 py-4 rounded-full bg-[var(--gold)] text-[#03244f] font-semibold hover:scale-110 transition"
-          >
-            {service.cta.text}
-          </a>
-        </div>
+        <a
+          href={service.cta.link}
+          className="inline-flex mt-14 px-16 py-5 rounded-full bg-white text-[#06255d] font-semibold text-lg hover:scale-105 transition"
+        >
+          {service.cta.text}
+        </a>
       </section>
     </main>
   );

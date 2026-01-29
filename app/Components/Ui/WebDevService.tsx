@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect } from "react";
 
-import phone from "../../../public/MobileWeb.png";
+import phone from "../../../public/MobileWeb1.png";
 import tablet from "../../../public/TabletWeb.png";
 import laptop from "../../../public/LaptopWeb.png";
 

@@ -18,31 +18,34 @@ export const servicesData: ServiceData[] = [
   {
     slug: "social-media-management",
     title: "Social Media Management",
-    tagline: "Build influence. Drive engagement. Stay relevant.",
+    tagline: "Strategic content. Real engagement. Measurable growth.",
     description:
-      "We manage your social presence with a strategy-first approach that builds brand authority, consistency, and measurable engagement across platforms.",
+      "Arambh provides professional social media management services to help brands grow their online presence, engage their audience, and drive real business results. We combine data-driven strategies with high-quality content, active community management, and targeted social media advertising to build a strong and consistent digital presence. We help brands in India grow their organic reach 2× through strategic social media marketing.",
     highlights: [
-      "Platform-specific content strategy",
-      "Consistent brand voice",
-      "Community management",
-      "Analytics & reporting",
+      "Data-driven social media strategies",
+      "High-quality content creation",
+      "Active community management",
+      "Targeted social media advertising",
     ],
     offerings: [
       {
-        title: "Content Planning",
-        description: "Monthly content calendars aligned with business goals.",
+        title: "Strategy & Planning",
+        description:
+          "Platform-specific social media strategies aligned with brand and business goals.",
       },
       {
-        title: "Posting & Scheduling",
-        description: "Optimized posting times for maximum reach.",
+        title: "Content Creation",
+        description:
+          "High-quality posts, creatives, and captions designed to boost engagement.",
       },
       {
-        title: "Engagement Management",
-        description: "Reply handling & community building.",
+        title: "Community Management",
+        description:
+          "Audience interaction, comment moderation, and relationship building.",
       },
     ],
     cta: {
-      text: "Scale Your Social Presence",
+      text: "Grow Your Social Presence",
       link: "/contact",
     },
   },
@@ -50,31 +53,34 @@ export const servicesData: ServiceData[] = [
   {
     slug: "content-marketing",
     title: "Content Marketing",
-    tagline: "Content that converts, not just exists.",
+    tagline: "Content that builds authority and drives growth.",
     description:
-      "We craft high-impact content that educates, influences, and converts your audience across digital touchpoints.",
+      "We deliver strategic content marketing and high-quality content production services that help brands build authority, engage their audience, and drive measurable growth. Our data-driven content strategies are aligned with your business goals and brand voice, covering the entire process from concept to production and post-production.",
     highlights: [
-      "SEO-driven content",
+      "Data-driven content strategy",
       "Brand storytelling",
-      "Authority building",
-      "Long-term growth assets",
+      "Performance-focused creatives",
+      "Multi-platform content production",
     ],
     offerings: [
       {
-        title: "Blog & Article Writing",
-        description: "Search-optimized content that ranks and converts.",
+        title: "Content Strategy",
+        description:
+          "Strategic planning aligned with business objectives and brand voice.",
       },
       {
-        title: "Website Copy",
-        description: "Clear, persuasive messaging aligned with your brand.",
+        title: "Visual Content Production",
+        description:
+          "Videos, brand photography, social media content, and digital creatives.",
       },
       {
-        title: "Campaign Content",
-        description: "Launch-focused content for growth initiatives.",
+        title: "Post-Production",
+        description:
+          "Editing and optimization to maximize engagement across platforms.",
       },
     ],
     cta: {
-      text: "Create High-Impact Content",
+      text: "Build Powerful Content",
       link: "/contact",
     },
   },
@@ -82,31 +88,34 @@ export const servicesData: ServiceData[] = [
   {
     slug: "performance-marketing",
     title: "Performance Marketing",
-    tagline: "Every click accountable. Every campaign optimized.",
+    tagline: "Result-driven campaigns with measurable ROI.",
     description:
-      "Data-backed marketing campaigns focused on ROI, conversions, and sustainable growth.",
+      "Our performance marketing services are designed to generate leads, sales, and measurable business growth. Using data-backed advertising strategies, we maximize ROI through highly targeted campaigns, advanced audience targeting, conversion tracking, and performance analytics.",
     highlights: [
-      "ROI-driven campaigns",
-      "Paid media optimization",
-      "A/B testing",
-      "Conversion tracking",
+      "Lead generation focused",
+      "ROI-driven ad strategies",
+      "Advanced targeting",
+      "Performance analytics",
     ],
     offerings: [
       {
-        title: "Paid Ads",
-        description: "Google, Meta & performance-focused ad campaigns.",
+        title: "Paid Advertising",
+        description:
+          "Execution and optimization of high-performing paid ad campaigns.",
       },
       {
-        title: "Funnel Optimization",
-        description: "Conversion-focused landing pages & flows.",
+        title: "Sales & Lead Funnels",
+        description:
+          "Conversion-focused funnels designed to deliver real business outcomes.",
       },
       {
-        title: "Analytics & Reporting",
-        description: "Clear insights and performance dashboards.",
+        title: "Campaign Optimization",
+        description:
+          "Continuous monitoring, testing, and performance improvements.",
       },
     ],
     cta: {
-      text: "Launch Performance Campaigns",
+      text: "Launch High-ROI Campaigns",
       link: "/contact",
     },
   },
@@ -114,31 +123,69 @@ export const servicesData: ServiceData[] = [
   {
     slug: "model-shoots",
     title: "Model Shoots",
-    tagline: "Visuals that elevate brand perception.",
+    tagline: "High-impact visuals that elevate your brand.",
     description:
-      "Premium photoshoots crafted to enhance brand credibility and visual storytelling.",
+      "We provide professional model shoot services that elevate your brand’s visual appeal and marketing impact. From concept planning to final execution, we manage styling, direction, and production to deliver compelling visuals for fashion brands, lifestyle campaigns, and digital promotions.",
     highlights: [
+      "End-to-end shoot management",
       "Creative direction",
-      "Professional production",
-      "Brand-aligned visuals",
-      "Multi-platform usage",
+      "Professional styling & grooming",
+      "High-quality post-production",
     ],
     offerings: [
       {
-        title: "Concept Development",
-        description: "Moodboards & visual themes.",
+        title: "Concept & Mood Planning",
+        description:
+          "Defining the look, personality, and visual direction of the shoot.",
       },
       {
-        title: "Photoshoot Execution",
-        description: "End-to-end shoot management.",
+        title: "Shoot Direction",
+        description:
+          "Guided posing with precise creative and aesthetic direction.",
       },
       {
-        title: "Post Production",
-        description: "High-end retouching & edits.",
+        title: "Post-Production",
+        description:
+          "Refined retouching, tonal balance, and final image delivery.",
       },
     ],
     cta: {
-      text: "Book a Creative Shoot",
+      text: "Book a Model Shoot",
+      link: "/contact",
+    },
+  },
+
+  {
+    slug: "brand-shoot",
+    title: "Brand Shoot",
+    tagline: "Visual storytelling that defines your brand.",
+    description:
+      "Arambh specializes in brand shoots that tell your brand story through powerful visuals. We create premium photography and video content that reflects your brand personality, values, and positioning, ideal for websites, social media, ad campaigns, and product launches.",
+    highlights: [
+      "Brand-focused storytelling",
+      "Premium photo & video content",
+      "Strong visual identity",
+      "Consistent brand aesthetics",
+    ],
+    offerings: [
+      {
+        title: "Brand Immersion",
+        description:
+          "Understanding the brand’s vision, values, and positioning.",
+      },
+      {
+        title: "Creative Planning",
+        description:
+          "Concept curation, styling, and detailed shoot planning.",
+      },
+      {
+        title: "Shoot Execution",
+        description:
+          "Seamless execution with refined creative direction.",
+      },
+    ],
+    cta: {
+      text: "Create Your Brand Visuals",
       link: "/contact",
     },
   },
@@ -146,31 +193,69 @@ export const servicesData: ServiceData[] = [
   {
     slug: "influencer-marketing",
     title: "Influencer Marketing",
-    tagline: "Authentic reach through trusted voices.",
+    tagline: "Authentic collaborations that drive trust.",
     description:
-      "Strategic influencer collaborations that drive credibility, awareness, and conversions.",
+      "Our influencer marketing services help brands build trust, reach the right audience, and drive authentic engagement. From influencer identification to campaign management and performance tracking, we handle the entire process to boost awareness, traffic, and conversions.",
     highlights: [
-      "Creator discovery",
-      "Campaign strategy",
-      "Authentic storytelling",
+      "Influencer identification",
+      "Campaign strategy & execution",
+      "Authentic engagement",
       "Performance tracking",
     ],
     offerings: [
       {
-        title: "Influencer Outreach",
-        description: "Relevant creators aligned with your brand.",
+        title: "Influencer Discovery",
+        description:
+          "Connecting your brand with creators aligned to your values.",
       },
       {
-        title: "Campaign Execution",
-        description: "Structured influencer campaigns.",
+        title: "Campaign Management",
+        description:
+          "End-to-end execution of influencer collaborations.",
       },
       {
-        title: "Reporting",
-        description: "Engagement & ROI insights.",
+        title: "Performance Reporting",
+        description:
+          "Tracking engagement, reach, and conversions.",
       },
     ],
     cta: {
-      text: "Activate Influencer Campaigns",
+      text: "Launch Influencer Campaigns",
+      link: "/contact",
+    },
+  },
+
+  {
+    slug: "seo",
+    title: "SEO Services",
+    tagline: "Long-term visibility. Sustainable growth.",
+    description:
+      "Arambh provides comprehensive SEO services to improve your website’s visibility and search engine rankings. Our ethical, data-driven SEO strategies combine technical optimization, keyword research, and high-quality content to attract the right audience and generate consistent leads.",
+    highlights: [
+      "Higher search visibility",
+      "Targeted organic traffic",
+      "Improved credibility",
+      "Long-term ROI",
+    ],
+    offerings: [
+      {
+        title: "SEO Audit & Strategy",
+        description:
+          "Identifying opportunities to improve rankings and performance.",
+      },
+      {
+        title: "On-Page & Technical SEO",
+        description:
+          "Optimizing structure, content, and user experience.",
+      },
+      {
+        title: "SEO Performance Tracking",
+        description:
+          "Monitoring rankings, traffic, and conversions.",
+      },
+    ],
+    cta: {
+      text: "Improve Your SEO",
       link: "/contact",
     },
   },
@@ -178,95 +263,34 @@ export const servicesData: ServiceData[] = [
   {
     slug: "website-development",
     title: "Website Development",
-    tagline: "Web experiences built for growth.",
+    tagline: "Websites designed to convert and perform.",
     description:
-      "High-performance websites that combine aesthetics, usability, and conversion-focused architecture.",
+      "We design and develop high-performance websites that are visually appealing, user-friendly, and conversion-focused. Our websites are fast, responsive, SEO-friendly, and built to support your overall digital marketing strategy.",
     highlights: [
-      "Modern UI/UX",
-      "Performance optimized",
-      "SEO-ready structure",
-      "Scalable architecture",
+      "Responsive & modern design",
+      "SEO-friendly structure",
+      "High performance",
+      "Conversion-focused UX",
     ],
     offerings: [
       {
-        title: "Custom Development",
-        description: "Tailored websites built with modern tech.",
+        title: "Custom Website Development",
+        description:
+          "Tailored websites aligned with your brand identity.",
       },
       {
-        title: "UI/UX Design",
-        description: "User-centric layouts & flows.",
+        title: "Landing Pages",
+        description:
+          "High-converting landing pages for campaigns and ads.",
       },
       {
-        title: "Maintenance & Support",
-        description: "Ongoing improvements & updates.",
+        title: "Ongoing Support",
+        description:
+          "Maintenance, updates, and performance optimization.",
       },
     ],
     cta: {
-      text: "Build a High-Impact Website",
-      link: "/contact",
-    },
-  },
-
-  {
-    slug: "seo-optimization",
-    title: "SEO Optimization",
-    tagline: "Rank higher. Stay visible. Grow organically.",
-    description:
-      "Search optimization strategies that improve visibility, authority, and long-term traffic.",
-    highlights: [
-      "Keyword research",
-      "On-page optimization",
-      "Technical SEO",
-      "Content optimization",
-    ],
-    offerings: [
-      {
-        title: "SEO Audit",
-        description: "Identify gaps & opportunities.",
-      },
-      {
-        title: "On-page SEO",
-        description: "Optimize content & structure.",
-      },
-      {
-        title: "Performance Tracking",
-        description: "Rank & traffic monitoring.",
-      },
-    ],
-    cta: {
-      text: "Improve Search Rankings",
-      link: "/contact",
-    },
-  },
-
-  {
-    slug: "brand-strategy",
-    title: "Brand Strategy",
-    tagline: "Clarity, positioning & long-term vision.",
-    description:
-      "We help brands define their identity, positioning, and growth roadmap with clarity and consistency.",
-    highlights: [
-      "Brand positioning",
-      "Messaging frameworks",
-      "Market differentiation",
-      "Long-term vision",
-    ],
-    offerings: [
-      {
-        title: "Brand Audit",
-        description: "Understand current perception & gaps.",
-      },
-      {
-        title: "Positioning Strategy",
-        description: "Clear differentiation in the market.",
-      },
-      {
-        title: "Brand Guidelines",
-        description: "Consistent brand execution.",
-      },
-    ],
-    cta: {
-      text: "Define Your Brand Strategy",
+      text: "Build Your Website",
       link: "/contact",
     },
   },
