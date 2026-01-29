@@ -1,8 +1,28 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
+
+const servicesList = [
+  "Performance Marketing",
+  "Social Media Marketing",
+  "Email Marketing",
+  "SEO",
+  "Affiliate Marketing",
+  "Content Production",
+];
 
 export default function Contact() {
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+
+  const toggleService = (service: string) => {
+    setSelectedServices((prev) =>
+      prev.includes(service)
+        ? prev.filter((s) => s !== service)
+        : [...prev, service]
+    );
+  };
+
   return (
     <section className="relative min-h-screen overflow-hidden">
 
@@ -52,6 +72,7 @@ export default function Contact() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="w-full bg-white rounded-2xl shadow-[0_12px_35px_rgba(0,0,0,0.15)] p-8 flex flex-col gap-6"
         >
+          {/* Name */}
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-[#03244f]">Name</label>
             <input
@@ -61,6 +82,7 @@ export default function Contact() {
             />
           </div>
 
+          {/* Email */}
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-[#03244f]">Email</label>
             <input
@@ -70,6 +92,30 @@ export default function Contact() {
             />
           </div>
 
+          {/* Services Horizontal Toggle */}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-[#03244f]">
+              Services you’re interested in
+            </label>
+            <div className="flex flex-wrap gap-3 mt-2">
+              {servicesList.map((service) => (
+                <button
+                  key={service}
+                  type="button"
+                  onClick={() => toggleService(service)}
+                  className={`px-4 py-2 rounded-xl border transition-all font-medium ${
+                    selectedServices.includes(service)
+                      ? "bg-[var(--gold)] text-[#03244f] border-[var(--gold)]"
+                      : "bg-white text-[#03244f] border-[#03244f]/30 hover:bg-[var(--gold)] hover:text-[#03244f]"
+                  }`}
+                >
+                  {service}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Message */}
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-[#03244f]">Message</label>
             <textarea
@@ -79,6 +125,7 @@ export default function Contact() {
             />
           </div>
 
+          {/* Submit */}
           <button
             type="submit"
             className="mt-4 bg-[var(--gold)] text-[#03244f] font-semibold py-3 rounded-xl hover:scale-105 transition-transform shadow-md"
