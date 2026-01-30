@@ -15,7 +15,7 @@ export default async function ServicePage({ params }: PageProps) {
   if (!service) notFound();
 
   return (
-    <main className="bg-[#0b3a85] text-[#06255d] font-sans">
+    <main className="bg-[#0b3a85] pt-20 text-[#06255d] font-sans">
 
       {/* TOP IMAGE */}
       <section className="relative w-full aspect-[1920/770] overflow-hidden">

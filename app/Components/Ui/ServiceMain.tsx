@@ -21,7 +21,7 @@ const services = [
   { title: "Influencer Marketing", slug: "influencer-marketing", icon: Users },
   { title: "Website Development", slug: "website-development", icon: Code2 },
   { title: "SEO Optimization", slug: "seo-optimization", icon: Search },
-  { title: "Brand Strategy", slug: "brand-strategy", icon: Sparkles },
+  { title: "Brand Shoot", slug: "brand-shoot", icon: Sparkles },
 ];
 
 export default function ServicesUSP() {

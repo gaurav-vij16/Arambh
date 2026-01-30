@@ -245,7 +245,7 @@ export const servicesData: ServiceData[] = [
   },
 
   {
-    slug: "seo",
+    slug: "seo-optimization",
     title: "SEO Services",
     tagline: "Long-term visibility. Sustainable growth.",
     image: Seo,
