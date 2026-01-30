@@ -24,7 +24,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <section className="relative min-h-screen pt-10 overflow-hidden">
 
       {/* TOP CURVED ENTRY */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-20">
