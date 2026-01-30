@@ -62,7 +62,7 @@ export default function ServicesUSP() {
           <h2 className="text-5xl md:text-6xl font-semibold text-[var(--gold)]">
             Services That Build Market Authority
           </h2>
-          <p className="mt-4 text-white/75 text-sm max-w-xl mx-auto">
+          <p className="mt-4 text-white text-sm max-w-xl mx-auto">
             Strategy-first execution crafted to scale brands with clarity & impact.
           </p>
         </motion.div>
