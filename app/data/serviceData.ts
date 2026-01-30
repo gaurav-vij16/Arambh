@@ -1,8 +1,20 @@
+import { StaticImageData } from "next/image";
+
+// ================= IMAGES =================
+import SocialMedia from "../../public/SocialMediaManagement.png";
+import Performance from "../../public/PerformanceMarketing.png";
+import Seo from "../../public/SeoImage.png";
+import WebsiteDevelopment from "../../public/WebsiteDevelopment.png";
+import InfluencerMarketing from "../../public/InfluencerMarketing.png";
+import Logo from "../../public/clients/Logo.png";
+
+// ================= TYPES =================
 export type ServiceData = {
   slug: string;
   title: string;
   tagline: string;
   description: string;
+  image: StaticImageData;
   highlights: string[];
   offerings: {
     title: string;
@@ -14,13 +26,15 @@ export type ServiceData = {
   };
 };
 
+// ================= DATA =================
 export const servicesData: ServiceData[] = [
   {
     slug: "social-media-management",
     title: "Social Media Management",
     tagline: "Strategic content. Real engagement. Measurable growth.",
+    image: SocialMedia,
     description:
-      "Arambh provides professional social media management services to help brands grow their online presence, engage their audience, and drive real business results. We combine data-driven strategies with high-quality content, active community management, and targeted social media advertising to build a strong and consistent digital presence. We help brands in India grow their organic reach 2× through strategic social media marketing.",
+      "Arambh provides professional social media management services to help brands grow their online presence, engage their audience, and drive real business results.",
     highlights: [
       "Data-driven social media strategies",
       "High-quality content creation",
@@ -31,7 +45,7 @@ export const servicesData: ServiceData[] = [
       {
         title: "Strategy & Planning",
         description:
-          "Platform-specific social media strategies aligned with brand and business goals.",
+          "Platform-specific social media strategies aligned with brand goals.",
       },
       {
         title: "Content Creation",
@@ -54,29 +68,30 @@ export const servicesData: ServiceData[] = [
     slug: "content-marketing",
     title: "Content Marketing",
     tagline: "Content that builds authority and drives growth.",
+    image: Logo, // fallback
     description:
-      "We deliver strategic content marketing and high-quality content production services that help brands build authority, engage their audience, and drive measurable growth. Our data-driven content strategies are aligned with your business goals and brand voice, covering the entire process from concept to production and post-production.",
+      "We deliver strategic content marketing services that help brands build authority and engage audiences.",
     highlights: [
       "Data-driven content strategy",
       "Brand storytelling",
       "Performance-focused creatives",
-      "Multi-platform content production",
+      "Multi-platform distribution",
     ],
     offerings: [
       {
         title: "Content Strategy",
         description:
-          "Strategic planning aligned with business objectives and brand voice.",
+          "Strategic planning aligned with business objectives.",
       },
       {
-        title: "Visual Content Production",
+        title: "Visual Content",
         description:
-          "Videos, brand photography, social media content, and digital creatives.",
+          "Videos, creatives, and branded content.",
       },
       {
-        title: "Post-Production",
+        title: "Optimization",
         description:
-          "Editing and optimization to maximize engagement across platforms.",
+          "Performance tracking and refinement.",
       },
     ],
     cta: {
@@ -89,11 +104,12 @@ export const servicesData: ServiceData[] = [
     slug: "performance-marketing",
     title: "Performance Marketing",
     tagline: "Result-driven campaigns with measurable ROI.",
+    image: Performance,
     description:
-      "Our performance marketing services are designed to generate leads, sales, and measurable business growth. Using data-backed advertising strategies, we maximize ROI through highly targeted campaigns, advanced audience targeting, conversion tracking, and performance analytics.",
+      "Our performance marketing services generate leads, sales, and measurable growth.",
     highlights: [
       "Lead generation focused",
-      "ROI-driven ad strategies",
+      "ROI-driven strategies",
       "Advanced targeting",
       "Performance analytics",
     ],
@@ -101,17 +117,17 @@ export const servicesData: ServiceData[] = [
       {
         title: "Paid Advertising",
         description:
-          "Execution and optimization of high-performing paid ad campaigns.",
+          "High-performing ad campaign execution.",
       },
       {
-        title: "Sales & Lead Funnels",
+        title: "Sales Funnels",
         description:
-          "Conversion-focused funnels designed to deliver real business outcomes.",
+          "Conversion-focused funnel building.",
       },
       {
-        title: "Campaign Optimization",
+        title: "Optimization",
         description:
-          "Continuous monitoring, testing, and performance improvements.",
+          "Continuous testing and improvements.",
       },
     ],
     cta: {
@@ -124,29 +140,30 @@ export const servicesData: ServiceData[] = [
     slug: "model-shoots",
     title: "Model Shoots",
     tagline: "High-impact visuals that elevate your brand.",
+    image: Logo, // fallback
     description:
-      "We provide professional model shoot services that elevate your brand’s visual appeal and marketing impact. From concept planning to final execution, we manage styling, direction, and production to deliver compelling visuals for fashion brands, lifestyle campaigns, and digital promotions.",
+      "Professional model shoot services to enhance your brand’s visual appeal.",
     highlights: [
-      "End-to-end shoot management",
       "Creative direction",
-      "Professional styling & grooming",
-      "High-quality post-production",
+      "Professional styling",
+      "High-quality production",
+      "Post-production excellence",
     ],
     offerings: [
       {
-        title: "Concept & Mood Planning",
+        title: "Concept Planning",
         description:
-          "Defining the look, personality, and visual direction of the shoot.",
+          "Mood boards and creative direction.",
       },
       {
-        title: "Shoot Direction",
+        title: "Shoot Execution",
         description:
-          "Guided posing with precise creative and aesthetic direction.",
+          "Guided posing and shoot management.",
       },
       {
-        title: "Post-Production",
+        title: "Post Production",
         description:
-          "Refined retouching, tonal balance, and final image delivery.",
+          "Retouching and final delivery.",
       },
     ],
     cta: {
@@ -159,33 +176,34 @@ export const servicesData: ServiceData[] = [
     slug: "brand-shoot",
     title: "Brand Shoot",
     tagline: "Visual storytelling that defines your brand.",
+    image: Logo, // fallback
     description:
-      "Arambh specializes in brand shoots that tell your brand story through powerful visuals. We create premium photography and video content that reflects your brand personality, values, and positioning, ideal for websites, social media, ad campaigns, and product launches.",
+      "Premium brand shoots that reflect brand personality and positioning.",
     highlights: [
-      "Brand-focused storytelling",
-      "Premium photo & video content",
-      "Strong visual identity",
-      "Consistent brand aesthetics",
+      "Brand storytelling",
+      "Premium visuals",
+      "Consistent aesthetics",
+      "High-end production",
     ],
     offerings: [
       {
-        title: "Brand Immersion",
+        title: "Brand Discovery",
         description:
-          "Understanding the brand’s vision, values, and positioning.",
+          "Understanding brand vision and tone.",
       },
       {
         title: "Creative Planning",
         description:
-          "Concept curation, styling, and detailed shoot planning.",
+          "Concept creation and styling.",
       },
       {
-        title: "Shoot Execution",
+        title: "Execution",
         description:
-          "Seamless execution with refined creative direction.",
+          "Professional shoot execution.",
       },
     ],
     cta: {
-      text: "Create Your Brand Visuals",
+      text: "Create Brand Visuals",
       link: "/contact",
     },
   },
@@ -194,29 +212,30 @@ export const servicesData: ServiceData[] = [
     slug: "influencer-marketing",
     title: "Influencer Marketing",
     tagline: "Authentic collaborations that drive trust.",
+    image: InfluencerMarketing,
     description:
-      "Our influencer marketing services help brands build trust, reach the right audience, and drive authentic engagement. From influencer identification to campaign management and performance tracking, we handle the entire process to boost awareness, traffic, and conversions.",
+      "We connect brands with the right influencers for authentic engagement.",
     highlights: [
-      "Influencer identification",
-      "Campaign strategy & execution",
+      "Influencer discovery",
+      "Campaign execution",
       "Authentic engagement",
       "Performance tracking",
     ],
     offerings: [
       {
-        title: "Influencer Discovery",
+        title: "Creator Discovery",
         description:
-          "Connecting your brand with creators aligned to your values.",
+          "Finding influencers aligned with your brand.",
       },
       {
         title: "Campaign Management",
         description:
-          "End-to-end execution of influencer collaborations.",
+          "End-to-end influencer execution.",
       },
       {
-        title: "Performance Reporting",
+        title: "Reporting",
         description:
-          "Tracking engagement, reach, and conversions.",
+          "Engagement and ROI tracking.",
       },
     ],
     cta: {
@@ -229,29 +248,30 @@ export const servicesData: ServiceData[] = [
     slug: "seo",
     title: "SEO Services",
     tagline: "Long-term visibility. Sustainable growth.",
+    image: Seo,
     description:
-      "Arambh provides comprehensive SEO services to improve your website’s visibility and search engine rankings. Our ethical, data-driven SEO strategies combine technical optimization, keyword research, and high-quality content to attract the right audience and generate consistent leads.",
+      "Ethical, data-driven SEO strategies for long-term organic growth.",
     highlights: [
-      "Higher search visibility",
-      "Targeted organic traffic",
+      "Higher rankings",
+      "Organic traffic",
       "Improved credibility",
-      "Long-term ROI",
+      "Sustainable ROI",
     ],
     offerings: [
       {
-        title: "SEO Audit & Strategy",
+        title: "SEO Audit",
         description:
-          "Identifying opportunities to improve rankings and performance.",
+          "Technical and on-page analysis.",
       },
       {
-        title: "On-Page & Technical SEO",
+        title: "Optimization",
         description:
-          "Optimizing structure, content, and user experience.",
+          "On-page and technical SEO.",
       },
       {
-        title: "SEO Performance Tracking",
+        title: "Tracking",
         description:
-          "Monitoring rankings, traffic, and conversions.",
+          "Performance monitoring.",
       },
     ],
     cta: {
@@ -264,29 +284,30 @@ export const servicesData: ServiceData[] = [
     slug: "website-development",
     title: "Website Development",
     tagline: "Websites designed to convert and perform.",
+    image: WebsiteDevelopment,
     description:
-      "We design and develop high-performance websites that are visually appealing, user-friendly, and conversion-focused. Our websites are fast, responsive, SEO-friendly, and built to support your overall digital marketing strategy.",
+      "High-performance websites that are fast, responsive, and conversion-focused.",
     highlights: [
-      "Responsive & modern design",
-      "SEO-friendly structure",
-      "High performance",
-      "Conversion-focused UX",
+      "Modern UI/UX",
+      "SEO friendly",
+      "Fast performance",
+      "Conversion focused",
     ],
     offerings: [
       {
-        title: "Custom Website Development",
+        title: "Custom Websites",
         description:
-          "Tailored websites aligned with your brand identity.",
+          "Tailored development aligned with brand goals.",
       },
       {
         title: "Landing Pages",
         description:
-          "High-converting landing pages for campaigns and ads.",
+          "High-converting campaign pages.",
       },
       {
-        title: "Ongoing Support",
+        title: "Support",
         description:
-          "Maintenance, updates, and performance optimization.",
+          "Maintenance and optimization.",
       },
     ],
     cta: {
