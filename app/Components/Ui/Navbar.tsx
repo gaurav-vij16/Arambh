@@ -20,53 +20,52 @@ export default function Navbar() {
     const el = document.getElementById(id);
     if (!el) return;
 
-    const yOffset = -80;
-    const y =
-      el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    const yOffset = -80; // navbar height
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
     window.scrollTo({ top: y, behavior: "smooth" });
     setOpen(false);
   };
 
-  // Scroll spy
+  // Scroll spy - detect section nearest to top
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
+      const scrollY = window.scrollY + 100; // offset to trigger earlier
+      let current = "Home";
 
-      if (scrollY < 200) {
-        setActive("Home");
-        return;
+      for (const item of NAV_ITEMS) {
+        const el = document.getElementById(item.toLowerCase());
+        if (el && el.offsetTop <= scrollY) {
+          current = item;
+        }
       }
 
-      NAV_ITEMS.forEach((item) => {
-        if (item === "Home") return;
-
-        const el = document.getElementById(item.toLowerCase());
-        if (!el) return;
-
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= 120 && rect.bottom >= 120) {
-          setActive(item);
-        }
-      });
+      setActive(current as typeof NAV_ITEMS[number]);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // run on mount to set correct initial active
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Animated underline
   useEffect(() => {
-    if (!navRef.current || !underlineRef.current) return;
+    const updateUnderline = () => {
+      if (!navRef.current || !underlineRef.current) return;
 
-    const activeLink = navRef.current.querySelector<HTMLButtonElement>(
-      `[data-item="${active}"]`
-    );
+      const activeLink = navRef.current.querySelector<HTMLButtonElement>(
+        `[data-item="${active}"]`
+      );
 
-    if (activeLink) {
-      underlineRef.current.style.transform = `translateX(${activeLink.offsetLeft}px)`;
-      underlineRef.current.style.width = `${activeLink.offsetWidth}px`;
-    }
+      if (activeLink) {
+        underlineRef.current.style.width = `${activeLink.offsetWidth}px`;
+        underlineRef.current.style.transform = `translateX(${activeLink.offsetLeft}px)`;
+      }
+    };
+
+    updateUnderline();
+    window.addEventListener("resize", updateUnderline);
+    return () => window.removeEventListener("resize", updateUnderline);
   }, [active]);
 
   return (
