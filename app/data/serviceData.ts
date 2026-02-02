@@ -7,6 +7,8 @@ import Seo from "../../public/SeoImage.png";
 import WebsiteDevelopment from "../../public/WebsiteDevelopment.png";
 import InfluencerMarketing from "../../public/InfluencerMarketing.png";
 import Logo from "../../public/clients/Logo.png";
+import ModelShoots from "../../public/ModelShoots.png"
+import ContentMarketing from "../../public/ContentMarketing.png";
 
 // ================= TYPES =================
 export type ServiceData = {
@@ -68,7 +70,7 @@ export const servicesData: ServiceData[] = [
     slug: "content-marketing",
     title: "Content Marketing",
     tagline: "Content that builds authority and drives growth.",
-    image: Logo, // fallback
+    image: ContentMarketing, // fallback
     description:
       "We deliver strategic content marketing services that help brands build authority and engage audiences.",
     highlights: [
@@ -140,7 +142,7 @@ export const servicesData: ServiceData[] = [
     slug: "model-shoots",
     title: "Model Shoots",
     tagline: "High-impact visuals that elevate your brand.",
-    image: Logo, // fallback
+    image: ModelShoots, // fallback
     description:
       "Professional model shoot services to enhance your brand’s visual appeal.",
     highlights: [
