@@ -8,6 +8,8 @@ import LandingPhoneServices from "./Components/Ui/LandingPhoneServices";
 import LandingService from "./Components/Ui/LandingService";
 import WebDevService from "./Components/Ui/WebDevService";
 import ServiceMain from "./Components/Ui/ServiceMain";
+import GrowthSection from "./Components/Ui/Growth";
+import Contact from "./contact/page";
 
 export default function Home() {
   return (
@@ -17,10 +19,12 @@ export default function Home() {
       <LandingAboutUs />
       <LandingPhoneServices/>     
       <ClientUi />
-      <LandingService />
+      {/* <LandingService /> */}
+      <GrowthSection />
       <WebDevService/>
       <ServiceMain/>
       <Portfolio/>
+      <Contact/>
       <ContactFormUi/>
     </>
   );
