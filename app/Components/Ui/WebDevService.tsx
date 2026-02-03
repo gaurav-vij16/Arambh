@@ -5,7 +5,7 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect } from "react";
 
 import phone from "../../../public/MobileWeb1.png";
-import tablet from "../../../public/TabletWeb.png";
+import tablet from "../../../public/tabletdesign.png";
 import laptop from "../../../public/LaptopWeb.png";
 
 export default function WebDevService() {
