@@ -9,6 +9,7 @@ import InfluencerMarketing from "../../public/InfluencerMarketing.png";
 import Logo from "../../public/clients/Logo.png";
 import ModelShoots from "../../public/ModelShoots.png"
 import ContentMarketing from "../../public/ContentMarketing.png";
+import BrandShoot from "../../public/BrandShoot.png";
 
 // ================= TYPES =================
 export type ServiceData = {
@@ -178,7 +179,7 @@ export const servicesData: ServiceData[] = [
     slug: "brand-shoot",
     title: "Brand Shoot",
     tagline: "Visual storytelling that defines your brand.",
-    image: Logo, // fallback
+    image: BrandShoot, // fallback
     description:
       "Premium brand shoots that reflect brand personality and positioning.",
     highlights: [
