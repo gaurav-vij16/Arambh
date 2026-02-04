@@ -1,164 +1,154 @@
-"use client";
-
 import { notFound } from "next/navigation";
 import { servicesData } from "@/app/data/serviceData";
 import Image from "next/image";
+import ProcessSlider from "../../Components/Ui/ProcessSlider";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return servicesData.map((service) => ({
+    slug: service.slug,
+  }));
+}
 
 type PageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ slug: string }>;
 };
 
 export default async function ServicePage({ params }: PageProps) {
+
+  // ✅ FIX: await params (Next.js 16 requirement)
   const { slug } = await params;
-  const service = servicesData.find((item) => item.slug === slug);
+
+  const service = servicesData.find(
+    (item) => item.slug === slug
+  );
 
   if (!service) notFound();
 
   return (
     <main className="font-masvis bg-white text-[#06255d]">
 
-      {/* HERO IMAGE */}
-      <section className="relative w-full aspect-[1920/770] overflow-hidden">
+      {/* ================= HERO ================= */}
+      <section className="relative mt-20 h-[70vh] min-h-[520px] overflow-hidden">
         <Image
           src={service.image}
           alt={service.title}
           fill
           priority
-          className="object-cover object-top"
+          sizes="100vw"
+          className="object-cover"
         />
+        <div className="absolute inset-0 bg-black/40" />
       </section>
 
-      {/* DESCRIPTION */}
-      <section className="py-48 px-6 bg-[#fff8e5]">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[60px_1fr] gap-12">
-
-          {/* Vertical accent */}
-          <div className="hidden lg:block relative">
-            <div className="sticky top-40 h-40 w-[6px] rounded-full bg-gradient-to-b from-[#f5c842] to-[#ffae42]" />
-          </div>
-
-          {/* Text Content */}
-          <div className="space-y-14">
-            {service.description.split("\n").map((line, i) => (
-              <p
-                key={i}
-                className="text-[#06255d] text-2xl md:text-3xl lg:text-[2.1rem] leading-[1.85] font-medium"
-              >
-                {line}
-              </p>
+      {/* ================= MARQUEE ================= */}
+      <section className="overflow-hidden border-y border-black py-6 bg-white">
+        <div className="relative">
+          <div className="flex animate-marquee">
+            {[...Array(2)].map((_, block) => (
+              <div key={block} className="flex space-x-32 min-w-max"> {/* min-w-max ensures full width */}
+                {[...Array(6)].map((_, i) => (
+                  <span
+                    key={i}
+                    className="text-3xl md:text-4xl font-bold tracking-wider text-[#06255d] uppercase whitespace-nowrap drop-shadow-lg"
+                  >
+                    {service.title}
+                  </span>
+                ))}
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* HIGHLIGHTS */}
-      <section className="py-40 px-6 bg-[#06255d] relative overflow-hidden">
-        {/* Floating background blobs */}
-        <div className="absolute -top-32 -left-32 w-72 h-72 bg-[#f5c842]/10 rounded-full blur-[100px] animate-blob" />
-        <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-[#22d3ee]/10 rounded-full blur-[120px] animate-blob animation-delay-2000" />
 
-        {/* Heading */}
-        <div className="text-center mb-24 relative z-10">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl mb-5 text-[#f5c842] font-masvis tracking-tight">
-            What We Focus On
-          </h2>
-          <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto">
-            Focused strategies designed to deliver clarity, consistency, and growth.
+
+      {/* ================= DESCRIPTION ================= */}
+      <section className="py-32 px-6 bg-[#fff8e5]">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-gray-800 font-sans md:text-2xl text-xl leading-relaxed tracking-wide">
+            {service.description}
           </p>
         </div>
-
-        {/* Cards */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 relative z-10">
-          {service.highlights.map((item, i) => (
-            <div
-              key={i}
-              className="group relative rounded-3xl overflow-hidden shadow-2xl transform transition-all duration-500 hover:scale-105 hover:rotate-3"
-            >
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#f5c842]/20 via-[#ffae42]/20 to-[#f5c842]/20 opacity-30 group-hover:opacity-60 transition-opacity duration-500" />
-
-              {/* Funky accent number */}
-              <div className="absolute -top-5 -left-5 text-6xl font-extrabold text-[#f5c842]/20 pointer-events-none select-none rotate-12">
-                0{i + 1}
-              </div>
-
-              {/* Card content */}
-              <div className="relative h-full w-full rounded-3xl px-10 py-14 bg-white text-[#06255d] flex flex-col justify-center items-start shadow-lg">
-                <p className="text-lg md:text-xl font-semibold leading-relaxed">
-                  {item}
-                </p>
-              </div>
-
-              {/* Slight floating effect */}
-              <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-                <div className="w-24 h-24 bg-[#f5c842]/10 rounded-full blur-xl absolute -top-8 -left-8 animate-blob"></div>
-                <div className="w-20 h-20 bg-[#22d3ee]/10 rounded-full blur-lg absolute -bottom-6 -right-6 animate-blob animation-delay-1000"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Blob animations */}
-        <style jsx>{`
-    @keyframes blob {
-      0%, 100% { transform: translate(0px, 0px) scale(1); }
-      33% { transform: translate(30px, -20px) scale(1.1); }
-      66% { transform: translate(-20px, 30px) scale(0.9); }
-    }
-    .animate-blob { animation: blob 8s infinite; }
-    .animation-delay-1000 { animation-delay: 1s; }
-    .animation-delay-2000 { animation-delay: 2s; }
-  `}</style>
       </section>
 
 
-      {/* OFFERINGS */}
-      <section className="py-36 px-6 bg-[#fff8e5] text-center">
-        <h2 className="text-4xl md:text-5xl font-bold mb-28 tracking-tight text-[#06255d] font-masvis">
-          Our Offerings
-        </h2>
+      {/* ================= PROCESS ================= */}
+      {service.steps && (
+        <ProcessSlider steps={service.steps} />
+      )}
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
-          {service.offerings.map((offering, i) => (
+      {/* ================= OFFERINGS ================= */}
+      <section className="py-36 bg-[#fff8e5] text-center">
+        <h2 className="text-5xl mb-20 font-bold">Our Offerings</h2>
+
+        <div className="grid md:grid-cols-3 gap-14 max-w-6xl mx-auto px-6">
+          {service.offerings.map((item, i) => (
             <div
               key={i}
-              className={`rounded-3xl p-14 shadow-2xl transition-transform duration-500 hover:-translate-y-4 ${i % 2 === 0
-                  ? "bg-gradient-to-tr from-[#f5c842] to-[#ffae42] text-[#06255d]"
+              className={`p-14 rounded-3xl shadow-xl transition-transform hover:scale-105
+              ${i % 2 === 0
+                  ? "bg-gradient-to-tr from-[#f5c842] to-[#ffae42]"
                   : "bg-[#06255d] text-white"
                 }`}
             >
-              <h3 className="text-2xl md:text-3xl font-semibold mb-6 tracking-tight font-masvis">
-                {offering.title}
+              <h3 className="text-2xl font-semibold mb-4">
+                {item.title}
               </h3>
-              <p className="text-lg md:text-xl leading-relaxed font-masvis">
-                {offering.description}
-              </p>
+              <p className="text-lg">{item.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-40 px-6 bg-[#06255d] text-center">
-        <h3 className="text-4xl md:text-5xl font-bold tracking-tight text-[#f5c842] font-masvis">
+      {/* ================= HIGHLIGHTS ================= */}
+      <section className="py-36 bg-[#06255d]">
+        <h2 className="text-center text-5xl sm:text-6xl font-extrabold text-[#f5c842] mb-20">
+          What We Focus On<span className="text-white/80">?</span>
+        </h2>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-14">
+          {service.highlights.map((item, index) => {
+            // Split at the colon
+            const [beforeColon, afterColon] = item.split(":");
+            return (
+              <div
+                key={index}
+                className="relative rounded-3xl p-10 sm:p-12 bg-gradient-to-br from-[#0f3b7d]/70 via-[#06255d]/60 to-[#0f3b7d]/70 border border-[#f5c842]/40 shadow-[0_10px_30px_rgba(245,200,66,0.3)] backdrop-blur-md hover:scale-105 transition-transform duration-500"
+              >
+                <div className="absolute top-0 left-0 w-full h-1 rounded-t-3xl bg-gradient-to-r from-[#f5c842] via-[#22d3ee] to-[#4ade80] animate-gradient-x" />
+                <p className="text-center text-2xl sm:text-3xl md:text-4xl font-bold text-white drop-shadow-lg">
+                  <span className="text-[#f5c842]">{beforeColon}:</span>
+                  {afterColon && " " + afterColon}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+
+
+
+
+
+      {/* ================= CTA ================= */}
+      <section className="py-40 bg-[#fff8e5] text-center">
+        <h3 className="text-5xl text-[#f5c842] mb-14 font-bold">
           Ready to get started?
         </h3>
 
-        <p className="mt-10 text-xl md:text-2xl text-white/80 max-w-3xl mx-auto font-masvis">
-          Let’s turn strategy into measurable growth and build brands that scale globally.
-        </p>
-
-        <div className="mt-16">
-          <a
-            href={service.cta.link}
-            className="inline-block px-16 py-5 rounded-full bg-white text-[#06255d] text-lg font-semibold tracking-wide shadow-xl transition-all duration-300 hover:bg-[#f5c842] hover:text-[#06255d] hover:scale-105 font-masvis"
-          >
-            {service.cta.text}
-          </a>
-        </div>
+        <a
+          href={service.cta.link}
+          className="inline-block px-16 py-5 bg-white rounded-full
+          font-semibold text-[#06255d]
+          hover:bg-[#f5c842] transition-colors"
+        >
+          {service.cta.text}
+        </a>
       </section>
+
     </main>
   );
 }
