@@ -58,8 +58,8 @@ export default function GrowthSection() {
           Growth That <span className="text-[#f5c842]">Speaks</span>
         </h2>
         <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl text-gray-200">
-          Real metrics. Real impact. Real brand momentum. See the numbers grow
-          as we scale together.
+          Real metrics. Real impact. Real brand momentum. See the numbers grow as
+          we scale together.
         </p>
       </div>
 
@@ -74,13 +74,15 @@ export default function GrowthSection() {
             <div className="absolute top-0 left-0 w-full h-1 rounded-t-3xl bg-gradient-to-r from-[#f5c842] via-[#22d3ee] to-[#4ade80]" />
 
             {/* Number */}
-            <div className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-[#f5c842] via-[#22d3ee] to-[#4ade80] bg-clip-text text-transparent">
+            <div className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-[#f5c842] via-[#22d3ee] to-[#4ade80] bg-clip-text text-transparent text-center">
               {counts[index].toLocaleString()}
               <span className="ml-1 text-white/80">{item.suffix}</span>
             </div>
 
             {/* Label */}
-            <p className="mt-3 text-gray-200 text-lg font-medium">{item.label}</p>
+            <p className="mt-3 text-gray-200 text-lg font-medium text-center">
+              {item.label}
+            </p>
           </div>
         ))}
       </div>
@@ -96,7 +98,7 @@ export default function GrowthSection() {
             fill="#06255d"
             fillOpacity="1"
             d="M0,192L48,186.7C96,181,192,171,288,176C384,181,480,203,576,213.3C672,224,768,224,864,202.7C960,181,1056,139,1152,112C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          ></path>
+          />
         </svg>
         <svg
           viewBox="0 0 1440 120"
