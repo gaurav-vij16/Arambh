@@ -10,6 +10,7 @@ import WebDevService from "./Components/Ui/WebDevService";
 import ServiceMain from "./Components/Ui/ServiceMain";
 import GrowthSection from "./Components/Ui/Growth";
 import Contact from "./contact/page";
+import Footer from "./Components/Ui/Footer";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
       {/* <Portfolio/> */}
       <Contact/>
       {/* <ContactFormUi/> */}
+      <Footer/>
     </>
   );
 }

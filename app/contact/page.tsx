@@ -41,7 +41,7 @@ export default function Contact() {
       </div>
 
       {/* BACKGROUND */}
-      <div className="absolute inset-0 bg-[#06255d]" />
+      <div className="absolute inset-0 bg-whtei" />
 
       {/* SUBTLE DEPTH */}
       <div className="absolute -top-40 -left-40 w-[520px] h-[520px] bg-[#0b3a78]/40 blur-[200px]" />

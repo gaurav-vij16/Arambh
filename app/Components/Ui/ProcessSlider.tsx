@@ -60,33 +60,47 @@ export default function ProcessSlider({ steps }: { steps: Step[] }) {
                     className="flex gap-28 overflow-x-hidden scroll-smooth py-6">
 
                     {steps.map((step, i) => (
-                        <div
-                            key={i}
-                            className="flex flex-col items-center text-center min-w-[260px]"
-                        >
+                        <div key={i} className="flex items-center">
 
-                            {/* STEP CIRCLE */}
+                            {/* STEP CARD */}
                             <div
-                                className="w-36 h-36 rounded-full
-  bg-gradient-to-br from-[#f5c842] to-[#ffae42]
-  flex items-center justify-center mb-10
-  outline outline-4 outline-white outline-offset-0"
+                                className="flex flex-col items-center text-center min-w-[260px]"
                             >
-                                <span className="text-5xl font-bold text-[#06255d]">
-                                    {i + 1}
-                                </span>
+
+                                {/* STEP CIRCLE */}
+                                <div
+                                    className="w-36 h-36 rounded-full
+        bg-gradient-to-br from-[#f5c842] to-[#ffae42]
+        flex items-center justify-center mb-10
+        outline outline-4 outline-white"
+                                >
+                                    <span className="text-5xl font-bold text-[#06255d]">
+                                        {i + 1}
+                                    </span>
+                                </div>
+
+                                <h3 className="text-3xl font-semibold mb-4">
+                                    {step.title}
+                                </h3>
+
                             </div>
 
-                            <h3 className="text-3xl font-semibold mb-4">
-                                {step.title}
-                            </h3>
+                            {/* CONNECTOR ARROW (NOT AFTER LAST STEP) */}
+                            {i !== steps.length - 1 && (
+                                <div className="mx-14 flex items-center">
 
-                            {/* <p className="text-[#f5c842] max-w-[260px]">
-                                {step.description}
-                            </p> */}
+                                    <span
+                                        className="text-[#f5c842] text-5xl opacity-80 animate-pulse"
+                                    >
+                                        ➜
+                                    </span>
+
+                                </div>
+                            )}
 
                         </div>
                     ))}
+
                 </div>
 
             </div>

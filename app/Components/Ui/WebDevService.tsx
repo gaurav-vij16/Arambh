@@ -8,6 +8,7 @@ import phone from "../../../public/MobileWeb1.png";
 import tablet from "../../../public/tabletdesign.png";
 import laptop from "../../../public/LaptopWeb.png";
 
+
 export default function WebDevService() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
