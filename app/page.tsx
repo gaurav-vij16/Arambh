@@ -23,9 +23,9 @@ export default function Home() {
       <GrowthSection />
       <WebDevService/>
       <ServiceMain/>
-      <Portfolio/>
+      {/* <Portfolio/> */}
       <Contact/>
-      <ContactFormUi/>
+      {/* <ContactFormUi/> */}
     </>
   );
 }

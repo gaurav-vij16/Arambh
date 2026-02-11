@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Logo from "../../../public/clients/Logo.png";
 
-const NAV_ITEMS = ["Home", "About", "Clients", "Services", "Team", "Contact"] as const;
+const NAV_ITEMS = ["Home", "About", "Clients", "Services", "Contact"] as const;
 
 export default function Navbar() {
   const [active, setActive] = useState<(typeof NAV_ITEMS)[number]>("Home");

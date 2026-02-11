@@ -113,7 +113,7 @@ export default function WebDevService() {
             style={{ x: tabletX, y: tabletY }}
             animate={{ y: [0, -4, 0] }}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-12 right-[-90px] w-[300px] z-10 opacity-95 drop-shadow-lg"
+            className="absolute bottom-12 right-[-130px] w-[300px] z-10 opacity-95 drop-shadow-lg"
           >
             <Image src={tablet} alt="Tablet UI" className="w-full h-auto" />
           </motion.div>

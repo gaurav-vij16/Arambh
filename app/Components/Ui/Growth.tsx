@@ -54,7 +54,7 @@ export default function GrowthSection() {
 
       {/* Heading */}
       <div className="relative z-10 text-center px-6">
-        <h2 className="font-masvis text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white">
+        <h2 className="font-masvis font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white">
           Growth That <span className="text-[#f5c842]">Speaks</span>
         </h2>
         <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl text-gray-200">

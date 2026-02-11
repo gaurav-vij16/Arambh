@@ -47,7 +47,7 @@ export default function ServicesUSP() {
       <div className="absolute bottom-0 right-0 w-[420px] h-[420px] bg-[#f5c842]/15 blur-[180px]" />
 
       {/* CONTENT */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 min-h-screen flex flex-col justify-center pt-24">
+      <div className="relative z-10 max-w-7xl mx-auto  min-h-screen flex flex-col justify-center">
 
         {/* HEADER */}
         <motion.div
@@ -56,12 +56,12 @@ export default function ServicesUSP() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-semibold text-[#f5c842]">
+          <h2 className="text-4xl md:text-7xl font-semibold text-[#f5c842]">
             Services That Build Market Authority
           </h2>
 
-          <p className="mt-4 text-white/80 text-xl max-w-2xl mx-auto">
-            Strategy-first execution crafted to scale brands with clarity & impact.
+          <p className="mt-6 text-white text-3xl max-w-7xl mx-auto">
+            Strategy first execution crafted to scale brands with clarity & impact.
           </p>
         </motion.div>
 

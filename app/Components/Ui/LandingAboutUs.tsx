@@ -46,7 +46,7 @@ export default function LandingAboutUs() {
             <div className="absolute inset-10 rounded-full bg-[#dab33a]/10 blur-2xl" />
 
             {/* Image */}
-            <div className="relative w-[82%] h-[82%] rounded-full overflow-hidden bg-white shadow-[0_25px_60px_rgba(0,0,0,0.18)] z-10">
+            <div className="relative w-[90%] h-[90%] rounded-full overflow-hidden bg-white shadow-[0_25px_60px_rgba(0,0,0,0.18)] z-10">
               <Image
                 src={AboutUsImg}
                 alt="About Arambh"
@@ -61,27 +61,29 @@ export default function LandingAboutUs() {
         {/* 📝 Right Content */}
         <div className="text-center lg:text-left">
           <h2
-            className="brand-text text-4xl font-bold md:text-5xl mb-6 tracking-tight"
-            style={{ color: "#dab33a" }}
+            className="brand-text text-4xl font-bold md:text-5xl mb-6 tracking-tight text-[#f5c842]
+             [text-shadow:1px_1px_3px_rgba(0,0,0,0.6)]"
           >
-           What's The आरंभ ? 
+            What's The आरंभ ?
           </h2>
+
+
 
           <p
             className="leading-relaxed mb-5 text-base md:text-lg"
             style={{ color: "#0c3269" }}
           >
             <span
-              className="brand-text font-semibold"
-              style={{ color: "#dab33a" }}
+              className="brand-text font-semibold text-[#f5c842]"
+
             >
               Arambh
             </span>{" "}
             is where strategy meets creativity and brands find their voice. We are
-            a full-scale{" "}
+            a full scale{" "}
             <span
-              className="font-semibold"
-              style={{ color: "#dab33a" }}
+              className="font-semibold text-[#f5c842]"
+
             >
               360° marketing and creative agency
             </span>{" "}
@@ -105,12 +107,12 @@ export default function LandingAboutUs() {
           >
             Every project at{" "}
             <span
-              className="brand-text font-semibold"
-              style={{ color: "#dab33a" }}
+              className="brand-text font-semibold text-[#f5c842]"
+
             >
               Arambh
             </span>{" "}
-            is built on insight, creativity, and performance — ensuring our
+            is built on insight, creativity, and performance  ensuring our
             clients don’t just stand out, but lead.
           </p>
         </div>

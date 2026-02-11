@@ -16,13 +16,13 @@ export default function LandingUi() {
       </video>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-[#0c3269]/40" />
+      {/* <div className="absolute inset-0 bg-[#0c3269]/40" /> */}
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col justify-center px-6 md:px-20 max-w-7xl mx-auto">
 
         {/* Brand Title */}
-        <h1
+        {/* <h1
           className="
             hindi-text
             text-6xl md:text-8xl
@@ -38,20 +38,20 @@ export default function LandingUi() {
           "
         >
           आरंभ
-        </h1>
+        </h1> */}
 
         {/* Gold Accent */}
-        <div className="mt-5 h-[2px] w-28 bg-[#dab33a]" />
+        {/* <div className="mt-5 h-[2px] w-28 bg-[#dab33a]" /> */}
 
         {/* Tagline */}
-        <p className="mt-7 max-w-lg text-base md:text-lg text-white/90 leading-relaxed">
+        {/* <p className="mt-7 max-w-lg text-base md:text-lg text-white/90 leading-relaxed">
           Where brands start{" "}
           <span className="text-[#dab33a] font-medium">&</span>{" "}
           rise
-        </p>
+        </p> */}
 
         {/* CTA */}
-        <div className="mt-14">
+        {/* <div className="mt-14">
           <button
             className="
               inline-flex items-center
@@ -70,8 +70,9 @@ export default function LandingUi() {
           >
             Explore Our Work
           </button>
-        </div>
+        </div> */}
       </div>
+      
     </section>
   );
 }

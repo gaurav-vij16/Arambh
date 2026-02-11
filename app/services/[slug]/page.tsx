@@ -39,7 +39,7 @@ export default async function ServicePage({ params }: PageProps) {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/40" />
+        {/* <div className="absolute inset-0 bg-black/40" /> */}
       </section>
 
       {/* ================= MARQUEE ================= */}
@@ -65,9 +65,9 @@ export default async function ServicePage({ params }: PageProps) {
 
 
       {/* ================= DESCRIPTION ================= */}
-      <section className="py-32 px-6 bg-[#fff8e5]">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-gray-800 font-sans md:text-2xl text-xl leading-relaxed tracking-wide">
+      <section className="py-22 px-3 bg-[#fff8e5]">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-gray-800 font-sans md:text-3xl text-2xl leading-relaxed tracking-wide">
             {service.description}
           </p>
         </div>
@@ -80,10 +80,11 @@ export default async function ServicePage({ params }: PageProps) {
       )}
 
       {/* ================= OFFERINGS ================= */}
-      <section className="py-36 bg-[#fff8e5] text-center">
-        <h2 className="text-5xl mb-20 font-bold">Our Offerings</h2>
+      <section className="py-22 bg-[#fff8e5] text-center">
+        <h2 className="text-8xl font-Masvis mb-20 font-extrabold">Our Offerings</h2>
 
-        <div className="grid md:grid-cols-3 gap-14 max-w-6xl mx-auto px-6">
+        <div className="grid md:grid-cols-3 gap-14 max-w-9xl mx-auto px-6">
+          <div className="absolute top-0 left-0 w-full h-1 rounded-t-3xl bg-gradient-to-r from-[#f5c842] via-[#22d3ee] to-[#4ade80] animate-gradient-x" />
           {service.offerings.map((item, i) => (
             <div
               key={i}
@@ -93,10 +94,10 @@ export default async function ServicePage({ params }: PageProps) {
                   : "bg-[#06255d] text-white"
                 }`}
             >
-              <h3 className="text-2xl font-semibold mb-4">
+              <h3 className="text-4xl  font-bold mb-4">
                 {item.title}
               </h3>
-              <p className="text-lg">{item.description}</p>
+              <p className="text-2xl">{item.description}</p>
             </div>
           ))}
         </div>
@@ -104,8 +105,8 @@ export default async function ServicePage({ params }: PageProps) {
 
       {/* ================= HIGHLIGHTS ================= */}
       <section className="py-36 bg-[#06255d]">
-        <h2 className="text-center text-5xl sm:text-6xl font-extrabold text-[#f5c842] mb-20">
-          What We Focus On<span className="text-white/80">?</span>
+        <h2 className="text-center font-Masvis text-7xl sm:text-8xl font-extrabold text-[#f5c842] mb-20">
+          What We Focus On?
         </h2>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-14">
@@ -118,9 +119,13 @@ export default async function ServicePage({ params }: PageProps) {
                 className="relative rounded-3xl p-10 sm:p-12 bg-gradient-to-br from-[#0f3b7d]/70 via-[#06255d]/60 to-[#0f3b7d]/70 border border-[#f5c842]/40 shadow-[0_10px_30px_rgba(245,200,66,0.3)] backdrop-blur-md hover:scale-105 transition-transform duration-500"
               >
                 <div className="absolute top-0 left-0 w-full h-1 rounded-t-3xl bg-gradient-to-r from-[#f5c842] via-[#22d3ee] to-[#4ade80] animate-gradient-x" />
-                <p className="text-center text-2xl sm:text-3xl md:text-4xl font-bold text-white drop-shadow-lg">
-                  <span className="text-[#f5c842]">{beforeColon}:</span>
-                  {afterColon && " " + afterColon}
+                <p className="text-center text-2xl sm:text-3xl md:text-4xl text-white drop-shadow-lg">
+                  <span className="text-[#f5c842] font-bold">
+                    {beforeColon}:
+                  </span>
+                  <span className="font-normal">
+                    {afterColon && " " + afterColon}
+                  </span>
                 </p>
               </div>
             );
@@ -135,15 +140,17 @@ export default async function ServicePage({ params }: PageProps) {
 
       {/* ================= CTA ================= */}
       <section className="py-40 bg-[#fff8e5] text-center">
-        <h3 className="text-5xl text-[#f5c842] mb-14 font-bold">
+        <h3 className="text-7xl font-extrabold text-[#06255d] mb-14 font-bold
+          [text-shadow:0_4px_12px_rgba(245,200,66,0.45)]">
           Ready to get started?
         </h3>
 
+
         <a
           href={service.cta.link}
-          className="inline-block px-16 py-5 bg-white rounded-full
-          font-semibold text-[#06255d]
-          hover:bg-[#f5c842] transition-colors"
+          className="inline-block px-16 py-5  rounded-full
+          font-bold text-[#06255d] text-2xl
+          bg-[#f5c842] transition-colors"
         >
           {service.cta.text}
         </a>

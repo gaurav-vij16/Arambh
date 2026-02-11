@@ -60,8 +60,8 @@ export default function Contact() {
           <h2 className="text-5xl md:text-6xl font-semibold text-[var(--gold)]">
             Get in Touch
           </h2>
-          <p className="mt-4 text-white/75 text-2xl max-w-3xl mx-auto">
-            We'd love to hear from you! Fill out the form and our team will reach out shortly.
+          <p className="mt-4 text-white text-2xl max-w-3xl mx-auto">
+            We'd love to hear from you. Fill out the form and our team will reach out shortly.
           </p>
         </motion.div>
 
