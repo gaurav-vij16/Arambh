@@ -5,7 +5,7 @@ import { Mail, Phone, Instagram, Linkedin, Youtube } from "lucide-react";
 export default function ContactFormUi() {
   return (
     <section className="w-full py-28 bg-[#06255d] text-white">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto  px-6">
 
         {/* TOP – LET'S CONNECT */}
         <div className="text-center mb-20">

@@ -24,90 +24,76 @@ export default function Contact() {
   };
 
   return (
-    <section className="relative min-h-screen pt-10 overflow-hidden">
+    <section className="relative min-h-screen overflow-hidden">
 
-      {/* TOP CURVED ENTRY */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-20">
-        <svg
-          viewBox="0 0 1440 120"
-          preserveAspectRatio="none"
-          className="w-full h-[120px]"
-        >
-          <path
-            d="M0,80 C240,40 480,40 720,80 960,120 1200,120 1440,60 L1440,0 L0,0 Z"
-            fill="#06255d"
-          />
-        </svg>
-      </div>
-
-      {/* BACKGROUND */}
-      <div className="absolute inset-0 bg-whtei" />
-
-      {/* SUBTLE DEPTH */}
-      <div className="absolute -top-40 -left-40 w-[520px] h-[520px] bg-[#0b3a78]/40 blur-[200px]" />
-      <div className="absolute bottom-0 right-0 w-[420px] h-[420px] bg-[#d4af37]/15 blur-[180px]" />
+      {/* SOFT BLOBS */}
+      <div className="absolute -top-40 -left-40 w-[520px] h-[520px] bg-[#06255d]/10 blur-[200px]" />
+      <div className="absolute bottom-0 right-0 w-[420px] h-[420px] bg-[#d4af37]/10 blur-[180px]" />
 
       {/* CONTENT */}
-      <div className="relative z-10 max-w-3xl mx-auto px-6 py-24 flex flex-col items-center">
+      <div className="relative z-10 max-w-3xl mx-auto px-6 py-10 flex flex-col items-center">
 
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-12"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
         >
-          <h2 className="text-5xl md:text-6xl font-semibold text-[var(--gold)]">
-            Get in Touch
+          <h2 className="text-6xl md:text-8xl font-semibold text-[#f5c842]">
+            Get In Touch
           </h2>
-          <p className="mt-4 text-white text-2xl max-w-3xl mx-auto">
-            We'd love to hear from you. Fill out the form and our team will reach out shortly.
+          <p className="mt-4 text-[#06255d] text-2xl max-w-4xl mx-auto">
+            Tell us about your goals and we’ll craft a strategy that fits.
           </p>
         </motion.div>
 
-        {/* FORM */}
+        {/* FORM CARD */}
         <motion.form
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-full bg-white rounded-2xl shadow-[0_12px_35px_rgba(0,0,0,0.15)] p-8 flex flex-col gap-6"
+          className="w-full bg-[#06255d] rounded-3xl shadow-2xl p-10 flex flex-col gap-7"
         >
+
           {/* Name */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-[#03244f]">Name</label>
+            <label className="text-sm text-white/80">Name</label>
             <input
               type="text"
               placeholder="Your Name"
-              className="w-full px-4 py-3 rounded-xl border border-[#03244f]/30 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] transition"
+              className="w-full px-4 py-3 rounded-xl bg-white/95 focus:outline-none focus:ring-2 focus:ring-[#f5c842]"
             />
           </div>
 
           {/* Email */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-[#03244f]">Email</label>
+            <label className="text-sm text-white/80">Email</label>
             <input
               type="email"
               placeholder="Your Email"
-              className="w-full px-4 py-3 rounded-xl border border-[#03244f]/30 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] transition"
+              className="w-full px-4 py-3 rounded-xl bg-white/95 focus:outline-none focus:ring-2 focus:ring-[#f5c842]"
             />
           </div>
 
-          {/* Services Horizontal Toggle */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-[#03244f]">
-              Services you’re interested in
+          {/* SERVICES */}
+          <div className="flex flex-col gap-3">
+            <label className="text-sm text-white/80">
+              Services you're interested in
             </label>
-            <div className="flex flex-wrap gap-3 mt-2">
+
+            <div className="flex flex-wrap gap-3">
               {servicesList.map((service) => (
                 <button
                   key={service}
                   type="button"
                   onClick={() => toggleService(service)}
-                  className={`px-4 py-2 rounded-xl border transition-all font-medium ${
-                    selectedServices.includes(service)
-                      ? "bg-[var(--gold)] text-[#03244f] border-[var(--gold)]"
-                      : "bg-white text-[#03244f] border-[#03244f]/30 hover:bg-[var(--gold)] hover:text-[#03244f]"
-                  }`}
+                  className={`px-4 py-2 rounded-xl border transition-all text-sm
+                    ${
+                      selectedServices.includes(service)
+                        ? "bg-[#f5c842] text-[#06255d] border-[#f5c842]"
+                        : "bg-transparent text-white border-white/30 hover:bg-white/10"
+                    }`}
                 >
                   {service}
                 </button>
@@ -115,43 +101,29 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Message */}
+          {/* MESSAGE */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-[#03244f]">Message</label>
+            <label className="text-sm text-white/80">Message</label>
             <textarea
-              placeholder="Your Message"
               rows={5}
-              className="w-full px-4 py-3 rounded-xl border border-[#03244f]/30 focus:outline-none focus:ring-2 focus:ring-[var(--gold)] transition resize-none"
+              placeholder="Tell us about your project..."
+              className="w-full px-4 py-3 rounded-xl bg-white/95 resize-none focus:outline-none focus:ring-2 focus:ring-[#f5c842]"
             />
           </div>
 
-          {/* Submit */}
+          {/* SUBMIT */}
           <button
             type="submit"
-            className="mt-4 bg-[var(--gold)] text-[#03244f] font-semibold py-3 rounded-xl hover:scale-105 transition-transform shadow-md"
+            className="mt-4 bg-[#f5c842] text-[#06255d] font-semibold py-3 rounded-xl hover:scale-105 transition-transform shadow-lg"
           >
             Send Message
           </button>
         </motion.form>
 
         {/* GOLD DIVIDER */}
-        <div className="relative mt-16 flex justify-center w-full">
-          <div className="w-64 h-px bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent animate-pulse" />
+        <div className="relative mt-20 flex justify-center w-full">
+          <div className="w-64 h-px bg-gradient-to-r from-transparent via-[#06255d] to-transparent" />
         </div>
-      </div>
-
-      {/* BOTTOM CURVED EXIT */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-        <svg
-          viewBox="0 0 1440 120"
-          preserveAspectRatio="none"
-          className="w-full h-[120px]"
-        >
-          <path
-            d="M0,40 C240,120 480,120 720,80 960,40 1200,40 1440,60 L1440,120 L0,120 Z"
-            fill="#ffffff"
-          />
-        </svg>
       </div>
     </section>
   );
