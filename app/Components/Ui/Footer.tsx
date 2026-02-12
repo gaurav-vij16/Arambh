@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Logo from "../../../public/clients/Logo.png";
+import Logo from "../../../public/FooterLogo.jpeg";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const quickLinks = [
@@ -13,12 +13,14 @@ const quickLinks = [
 ];
 
 const services = [
-  { label: "Social Media Marketing", slug: "social-media-marketing" },
-  { label: "Affiliate Marketing", slug: "affiliate-marketing" },
-  { label: "SEO", slug: "seo" },
-  { label: "Paid Advertising", slug: "paid-advertising" },
-  { label: "Email Marketing", slug: "email-marketing" },
-  { label: "Content Production", slug: "content-production" },
+  { label: "Social Media Management", slug: "social-media-management" },
+  { label: "Content Marketing", slug: "content-marketing" },
+  { label: "Performance Marketing", slug: "performance-marketing" },
+  { label: "Model Shoots", slug: "model-shoots" },
+  { label: "Influencer Marketing", slug: "influencer-marketing" },
+  { label: "Website Development", slug: "website-development" },
+  { label: "SEO Optimization", slug: "seo-optimization" },
+  { label: "Brand Shoot", slug: "brand-shoot" },
 ];
 
 export default function Footer() {
@@ -29,7 +31,7 @@ export default function Footer() {
 
         {/* LOGO + ABOUT */}
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-          <Image src={Logo} alt="Arambh Logo" width={160} height={70} />
+          <Image src={Logo} alt="Arambh Logo" width={160} height={70} className="rounded-full" />
 
           <p className="text-gray-300 text-sm leading-relaxed max-w-xs mt-5">
             Arambh drives growth with creativity, innovation, and
@@ -38,7 +40,7 @@ export default function Footer() {
 
           <div className="flex gap-5 text-2xl mt-6">
             <a
-              href="https://www.instagram.com/skmdigimedia"
+              href="https://www.instagram.com/arambhinfluence"
               target="_blank"
               className="text-[#f5c842] hover:text-white transition hover:scale-110"
             >
