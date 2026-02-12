@@ -16,18 +16,35 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <LandingUi />
-      <LandingAboutUs />
-      <LandingPhoneServices/>     
-      <ClientUi />
-      {/* <LandingService /> */}
-      <GrowthSection />
-      <WebDevService/>
-      <ServiceMain/>
-      {/* <Portfolio/> */}
-      <Contact/>
-      {/* <ContactFormUi/> */}
-      <Footer/>
+
+      <section id="home">
+        <LandingUi />
+      </section>
+
+      <section id="about">
+        <LandingAboutUs />
+      </section>
+
+      <section id="services">
+        <LandingPhoneServices />
+      </section>
+
+      <section id="clients">
+        <ClientUi />
+      </section>
+
+      <section id="services">
+        <GrowthSection />
+        <WebDevService />
+        <ServiceMain />
+      </section>
+
+      <section id="contact">
+        <Contact />
+      </section>
+
+      <Footer />
     </>
   );
 }
+

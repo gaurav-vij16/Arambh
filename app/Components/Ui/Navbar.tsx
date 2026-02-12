@@ -30,7 +30,7 @@ export default function Navbar() {
   // Scroll spy - detect section nearest to top
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY + 100; // offset to trigger earlier
+      const scrollY = window.scrollY + 140;
       let current = "Home";
 
       for (const item of NAV_ITEMS) {
@@ -70,7 +70,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-xl border-b border-gray-200/40">
-      <nav className="max-w-7xl mx-auto h-20 px-6 flex items-center justify-between">
+      <nav className="max-w-7xl  mx-auto h-20 px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
@@ -87,7 +87,7 @@ export default function Navbar() {
         <div className="relative hidden md:block">
           <ul
             ref={navRef}
-            className="flex items-center gap-12 text-[13px] font-medium tracking-[0.18em]"
+            className="flex items-center gap-12 font-bold text-[13px]    tracking-[0.18em]"
           >
             {NAV_ITEMS.map((item) => (
               <li key={item}>

@@ -11,28 +11,45 @@ const stats = [
 ];
 
 export default function GrowthSection() {
-  const [mounted, setMounted] = useState(false);
-  const [counts, setCounts] = useState<number[]>(stats.map(() => 0));
+  const sectionRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
 
-  // Mark component as mounted
+  const [hasStarted, setHasStarted] = useState(false);
+  const [counts, setCounts] = useState<number[]>(stats.map(() => 0));
+
+  /* ---------------------------------- */
+  /* Observe when section is visible */
   useEffect(() => {
-    setMounted(true);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasStarted(true);
+          observer.disconnect(); // run once
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+
+    return () => observer.disconnect();
   }, []);
 
-  // Animate stats with easing
+  /* ---------------------------------- */
+  /* Animate numbers */
   useEffect(() => {
-    if (!mounted) return;
+    if (!hasStarted) return;
 
     const duration = 1400;
     const start = performance.now();
+
     const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
     const animate = (now: number) => {
       const progress = Math.min((now - start) / duration, 1);
-      const easedProgress = easeOutCubic(progress);
+      const eased = easeOutCubic(progress);
 
-      setCounts(stats.map((stat) => Math.floor(stat.value * easedProgress)));
+      setCounts(stats.map((s) => Math.floor(s.value * eased)));
 
       if (progress < 1) {
         rafRef.current = requestAnimationFrame(animate);
@@ -44,10 +61,13 @@ export default function GrowthSection() {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [mounted]);
+  }, [hasStarted]);
 
   return (
-    <section className="relative overflow-hidden bg-[#06255d] py-32">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-[#06255d] py-32"
+    >
       {/* Ambient blobs */}
       <div className="absolute -top-48 -left-48 w-[400px] h-[400px] bg-[#f5c842]/20 blur-[140px] rounded-full animate-blob" />
       <div className="absolute -bottom-48 -right-48 w-[400px] h-[400px] bg-[#4ade80]/20 blur-[140px] rounded-full animate-blob animation-delay-2000" />
@@ -70,46 +90,18 @@ export default function GrowthSection() {
             key={item.label}
             className="relative rounded-3xl p-8 bg-white/10 border border-[#f5c842]/40 shadow-xl backdrop-blur-md hover:scale-105 transition-transform duration-500"
           >
-            {/* Accent line */}
             <div className="absolute top-0 left-0 w-full h-1 rounded-t-3xl bg-gradient-to-r from-[#f5c842] via-[#22d3ee] to-[#4ade80]" />
 
-            {/* Number */}
             <div className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-[#f5c842] via-[#22d3ee] to-[#4ade80] bg-clip-text text-transparent text-center">
               {counts[index].toLocaleString()}
               <span className="ml-1 text-white/80">{item.suffix}</span>
             </div>
 
-            {/* Label */}
             <p className="mt-3 text-gray-200 text-lg font-medium text-center">
               {item.label}
             </p>
           </div>
         ))}
-      </div>
-
-      {/* Curved Bottom Waves */}
-      <div className="absolute bottom-0 w-full overflow-hidden leading-[0]">
-        <svg
-          className="relative block w-full h-32"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
-        >
-          <path
-            fill="#06255d"
-            fillOpacity="1"
-            d="M0,192L48,186.7C96,181,192,171,288,176C384,181,480,203,576,213.3C672,224,768,224,864,202.7C960,181,1056,139,1152,112C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          />
-        </svg>
-        <svg
-          viewBox="0 0 1440 120"
-          preserveAspectRatio="none"
-          className="w-full h-[120px]"
-        >
-          <path
-            d="M0,40 C240,120 480,120 720,80 960,40 1200,40 1440,60 L1440,120 L0,120 Z"
-            fill="#06255d"
-          />
-        </svg>
       </div>
 
       {/* Custom blob animation */}
@@ -133,19 +125,6 @@ export default function GrowthSection() {
           animation-delay: 2s;
         }
       `}</style>
-
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-        <svg
-          viewBox="0 0 1440 120"
-          preserveAspectRatio="none"
-          className="w-full h-[120px]"
-        >
-          <path
-            d="M0,40 C240,120 480,120 720,80 960,40 1200,40 1440,60 L1440,120 L0,120 Z"
-            fill="#ffffff"
-          />
-        </svg>
-      </div>
     </section>
   );
 }

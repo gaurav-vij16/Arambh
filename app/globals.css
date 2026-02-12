@@ -1,20 +1,44 @@
 @import "tailwindcss";
 
-/* ================= BASE ================= */
+/* ======================================================
+   BASE RESET & TYPOGRAPHY
+====================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
+  margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
   background-color: #ffffff;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* ================= COLORS ================= */
+/* ======================================================
+   CSS VARIABLES
+====================================================== */
+
 :root {
   --gold: #f5c842;
-  --blue: #1b38ba;
+  --gold-dark: #d6ab2f;
+  --blue: #0c3269;
   --text-light: #ffffff;
 }
 
-/* ================= GOLD HEADING ================= */
+/* ======================================================
+   GOLD HEADING EFFECT
+====================================================== */
+
 .gold-heading {
   position: relative;
   font-family: "Playfair Display", "Cinzel", serif;
@@ -25,7 +49,7 @@ body {
     180deg,
     #fff6c8 0%,
     var(--gold) 35%,
-    #d6ab2f 65%,
+    var(--gold-dark) 65%,
     #fff6c8 100%
   );
 
@@ -35,10 +59,10 @@ body {
   text-shadow:
     0 0 14px rgba(245, 200, 66, 0.45),
     0 0 36px rgba(245, 200, 66, 0.25),
-    0 10px 50px rgba(0, 0, 0, 0.55);
+    0 12px 50px rgba(0, 0, 0, 0.55);
 }
 
-/* shimmer */
+/* Shimmer overlay */
 .gold-heading::after {
   content: "";
   position: absolute;
@@ -55,50 +79,98 @@ body {
 
 @keyframes goldShine {
   from { transform: translateX(-100%); }
-  to { transform: translateX(100%); }
+  to   { transform: translateX(100%); }
 }
 
-/* ================= MAGNETIC ================= */
+/* ======================================================
+   MAGNETIC HOVER
+====================================================== */
+
 .magnetic {
   transition: transform 0.25s ease;
   will-change: transform;
 }
 
-/* ================= CLIENT MARQUEE ================= */
+/* ======================================================
+   CLIENT MARQUEE
+====================================================== */
+
 .client-marquee {
-  display: flex;
   width: 100%;
   overflow: hidden;
+  display: flex;
 }
 
 .client-track {
   display: flex;
-  gap: 5rem;
   min-width: max-content;
-  animation: clientMarquee 30s linear infinite;
+  gap: 2.5rem;
+  animation: clientMarquee 22s linear infinite;
   will-change: transform;
+}
+
+@media (min-width: 640px) {
+  .client-track {
+    gap: 4rem;
+    animation-duration: 26s;
+  }
+}
+
+@media (min-width: 1024px) {
+  .client-track {
+    gap: 5rem;
+    animation-duration: 30s;
+  }
 }
 
 @keyframes clientMarquee {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to   { transform: translateX(-50%); }
 }
 
-/* ================= CLIENT CARD ================= */
+/* ======================================================
+   CLIENT CARD (LOGO)
+====================================================== */
+
 .client-card {
-  min-width: 160px;
+  min-width: 120px;
   display: flex;
   justify-content: center;
   perspective: 1000px;
 }
 
+@media (min-width: 640px) {
+  .client-card {
+    min-width: 150px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .client-card {
+    min-width: 170px;
+  }
+}
+
 .client-card-inner {
-  width: 140px;
-  height: 70px;
+  width: 110px;
+  height: 60px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s ease;
-  will-change: transform;
+}
+
+@media (min-width: 640px) {
+  .client-card-inner {
+    width: 140px;
+    height: 70px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .client-card-inner {
+    width: 160px;
+    height: 80px;
+  }
 }
 
 .client-card:hover .client-card-inner {
@@ -112,12 +184,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateZ(0);
 }
 
 .client-back {
   transform: rotateX(180deg);
 }
+
+/* ======================================================
+   BLOB ANIMATION
+====================================================== */
 
 @keyframes blob {
   0%, 100% { transform: translate(0,0) scale(1); }
@@ -137,9 +212,13 @@ body {
   animation-delay: 2s;
 }
 
+/* ======================================================
+   GENERIC MARQUEE
+====================================================== */
+
 @keyframes marquee {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); } /* scroll exactly one block width */
+  100% { transform: translateX(-50%); }
 }
 
 .animate-marquee {
@@ -148,14 +227,30 @@ body {
   animation: marquee 20s linear infinite;
 }
 
+/* ======================================================
+   GRADIENT FLOW
+====================================================== */
 
-  @keyframes gradient-x {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-  .animate-gradient-x {
-    background-size: 200% 200%;
-    animation: gradient-x 4s ease infinite;
-  }
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
 
-  
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 4s ease infinite;
+}
+
+/* ======================================================
+   ACCESSIBILITY & PERFORMANCE
+====================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

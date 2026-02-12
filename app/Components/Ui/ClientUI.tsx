@@ -16,13 +16,14 @@ const clients = [
 
 export default function ClientUi() {
   return (
-    <section className="w-full bg-white py-24 overflow-hidden">
+    <section className="w-full bg-white py-16 sm:py-20 md:py-24 overflow-hidden">
       {/* Heading */}
-      <div className="text-center mb-14">
-        <p className="tracking-[0.15em] font-bold   text-5xl text-[#f5c842] uppercase mb-6">
+      <div className="text-center mb-10 sm:mb-14 px-4">
+        <p className="tracking-[0.15em] font-bold text-3xl sm:text-4xl md:text-5xl text-[#f5c842] uppercase mb-4 sm:mb-6">
           Our Clients
         </p>
-        <h2 className="text-3xl md:text-6xl font-semibold underline text-[#0c3269]">
+
+        <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-6xl font-semibold underline text-[#0c3269]">
           Trusted by Leading Brands
         </h2>
       </div>
@@ -47,8 +48,8 @@ function ClientCard({ src }: { src: string }) {
           <Image
             src={src}
             alt="Client logo"
-            width={140}
-            height={70}
+            width={160}
+            height={80}
             className="object-contain"
           />
         </div>
@@ -57,8 +58,8 @@ function ClientCard({ src }: { src: string }) {
           <Image
             src={src}
             alt="Client logo"
-            width={140}
-            height={70}
+            width={160}
+            height={80}
             className="object-contain scale-105"
           />
         </div>

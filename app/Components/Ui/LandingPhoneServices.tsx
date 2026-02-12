@@ -20,37 +20,41 @@ export default function LandingPhoneServices() {
 
   return (
     <section className="relative w-full overflow-hidden">
-      <div className="relative bg-gradient-to-br from-[#03244f] via-[#06255d] to-[#03244f] py-24 clip-section">
+      <div className="relative bg-gradient-to-br from-[#03244f] via-[#06255d] to-[#03244f] py-16 sm:py-20 lg:py-24 clip-section">
 
         {/* Ambient glows */}
-        <div className="absolute -top-32 -left-32 w-[420px] h-[420px] bg-blue-500/25 blur-[160px]" />
-        <div className="absolute bottom-0 right-0 w-[360px] h-[360px] bg-yellow-400/20 blur-[140px]" />
+        <div className="absolute -top-32 -left-32 w-[300px] h-[300px] sm:w-[420px] sm:h-[420px] bg-blue-500/25 blur-[160px]" />
+        <div className="absolute bottom-0 right-0 w-[260px] h-[260px] sm:w-[360px] sm:h-[360px] bg-yellow-400/20 blur-[140px]" />
 
         <div className="relative max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center px-6">
 
           {/* LEFT SERVICES */}
-          <div className="space-y-14">
-            {services.filter(s => s.side === "left").map(service => (
-              <div
-                key={service.id}
-                onMouseEnter={() => setActiveId(service.id)}
-                className="group cursor-pointer"
-              >
-                <div className="border-b border-white/40 pb-2 mb-3">
-                  <span className="text-white text-5xl font-bold transition-all duration-300 group-hover:text-[var(--gold)]">
-                    {service.id}
-                  </span>
-                </div>
-                <p className="text-white text-lg font-semibold transition-colors group-hover:text-[var(--gold)]">
-                  {service.title}
-                </p>
-              </div>
-            ))}
+          <div className="space-y-8 sm:space-y-12 order-2 lg:order-1">
+            {services
+              .filter(s => s.side === "left")
+              .map(service => (
+                <ServiceItem
+                  key={service.id}
+                  service={service}
+                  activeId={activeId}
+                  setActiveId={setActiveId}
+                />
+              ))}
           </div>
 
-          {/* FIXED IMAGE CONTAINER */}
-          <div className="flex justify-center">
-            <div className="relative w-[340px] h-[600px] rounded-[32px] overflow-hidden bg-black/20 shadow-[0_0_60px_rgba(0,0,0,0.45)]">
+          {/* PHONE IMAGE */}
+          <div className="flex justify-center order-1 lg:order-2">
+            <div className="
+              relative
+              w-[230px] h-[420px]
+              sm:w-[280px] sm:h-[500px]
+              lg:w-[340px] lg:h-[600px]
+              rounded-[28px]
+              overflow-hidden
+              bg-black/20
+              shadow-[0_0_60px_rgba(0,0,0,0.45)]
+            ">
+
               {services.map(service => (
                 <Image
                   key={service.id}
@@ -59,54 +63,33 @@ export default function LandingPhoneServices() {
                   fill
                   priority
                   className={`
-                    object-cover
-                    absolute inset-0
-                    transition-all duration-700 ease-out
+                    absolute inset-0 object-cover
+                    transition-all duration-700 ease-in-out
                     ${activeId === service.id
-                      ? "opacity-100 scale-100 z-10"
-                      : "opacity-0 scale-[1.03] z-0"}
+                      ? "opacity-100 scale-100 translate-y-0 z-10"
+                      : "opacity-0 scale-105 translate-y-2 z-0"}
                   `}
                 />
               ))}
+
             </div>
           </div>
 
           {/* RIGHT SERVICES */}
-          <div className="space-y-14">
-            {services.filter(s => s.side === "right").map(service => (
-              <div
-                key={service.id}
-                onMouseEnter={() => setActiveId(service.id)}
-                className="group cursor-pointer"
-              >
-                <div className="border-b border-white/40 pb-2 mb-3">
-                  <span className="text-white text-5xl font-bold transition-all duration-300 group-hover:text-[var(--gold)]">
-                    {service.id}
-                  </span>
-                </div>
-                <p className="text-white text-lg font-semibold transition-colors group-hover:text-[var(--gold)]">
-                  {service.title}
-                </p>
-              </div>
-            ))}
+          <div className="space-y-8 sm:space-y-12 order-3">
+            {services
+              .filter(s => s.side === "right")
+              .map(service => (
+                <ServiceItem
+                  key={service.id}
+                  service={service}
+                  activeId={activeId}
+                  setActiveId={setActiveId}
+                />
+              ))}
           </div>
 
         </div>
-
-        {/* BOTTOM CURVE */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-          <svg
-            viewBox="0 0 1440 120"
-            preserveAspectRatio="none"
-            className="w-full h-[120px]"
-          >
-            <path
-              d="M0,40 C240,120 480,120 720,80 960,40 1200,40 1440,60 L1440,120 L0,120 Z"
-              fill="#ffffff"
-            />
-          </svg>
-        </div>
-
       </div>
 
       {/* CLIP SHAPE */}
@@ -123,5 +106,61 @@ export default function LandingPhoneServices() {
         }
       `}</style>
     </section>
+  );
+}
+
+/* ------------------------------ */
+
+function ServiceItem({
+  service,
+  activeId,
+  setActiveId,
+}: {
+  service: any;
+  activeId: string;
+  setActiveId: (id: string) => void;
+}) {
+  const isActive = activeId === service.id;
+
+  return (
+    <div
+      onMouseEnter={() => setActiveId(service.id)}
+      onClick={() => setActiveId(service.id)}
+      className="group cursor-pointer select-none"
+    >
+      {/* Number */}
+      <div className="relative border-b border-white/40 pb-1 mb-2">
+        <span
+          className={`
+            font-bold
+            text-3xl sm:text-4xl lg:text-5xl
+            transition-all duration-300
+            ${isActive ? "text-[var(--gold)]" : "text-white"}
+          `}
+        >
+          {service.id}
+        </span>
+
+        {/* Animated underline */}
+        <span
+          className={`
+            absolute left-0 bottom-0 h-[2px] bg-[var(--gold)]
+            transition-all duration-500
+            ${isActive ? "w-full" : "w-0"}
+          `}
+        />
+      </div>
+
+      {/* Title */}
+      <p
+        className={`
+          text-base sm:text-lg font-semibold
+          transition-colors duration-300
+          ${isActive ? "text-[var(--gold)]" : "text-white"}
+        `}
+      >
+        {service.title}
+      </p>
+    </div>
   );
 }

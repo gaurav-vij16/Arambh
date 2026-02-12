@@ -48,7 +48,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="https://www.linkedin.com/company/skm-digi/"
+              href="https://www.linkedin.com/company/111694574/admin/dashboard/"
               target="_blank"
               className="text-[#f5c842] hover:text-white transition hover:scale-110"
             >
@@ -87,7 +87,7 @@ export default function Footer() {
             {services.map((service) => (
               <li key={service.slug}>
                 <Link
-                  href={`/Services#${service.slug}`}
+                  href={`/services/${service.slug}`}
                   className="hover:text-[#f5c842] transition hover:translate-x-1 inline-block"
                 >
                   {service.label}
@@ -138,10 +138,10 @@ export default function Footer() {
           <p className="text-gray-300 font-semibold text-sm">
             Email us at{" "}
             <a
-              href="mailto:info@skmdigi.com"
+              href="mailto:info@arambhinfulence.com"
               className="text-[#f5c842] hover:underline"
             >
-              info@skmdigi.com
+              info@arambhinfulence.com
             </a>
           </p>
 
