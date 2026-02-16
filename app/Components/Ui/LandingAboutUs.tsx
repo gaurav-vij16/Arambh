@@ -121,7 +121,7 @@ export default function LandingAboutUs() {
             <span className="brand-text font-semibold text-[#f5c842]">
               Arambh
             </span>{" "}
-            is built on insight, creativity, and performance — ensuring our
+            is built on insight, creativity, and performance  ensuring our
             clients don’t just stand out, but lead.
           </p>
         </div>

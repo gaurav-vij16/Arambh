@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Arambh | Where Brands Start & Rise",
   description:
-    "Arambh is a performance-driven digital marketing and influencer marketing agency helping brands grow through SEO, social media marketing, paid ads, and creator collaborations.",
+    "Arambh is a performance driven digital marketing and influencer marketing agency helping brands grow through SEO, social media marketing, paid ads, and creator collaborations.",
 
   icons: {
     icon: "/favicon.png",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Arambh | Where Brands Start & Rise",
     description:
-      "Performance-driven digital marketing & influencer marketing agency helping brands scale with SEO, social media, paid ads and creator partnerships.",
+      "Performancedriven digital marketing & influencer marketing agency helping brands scale with SEO, social media, paid ads and creator partnerships.",
     url: "https://arambhinfluence.com",
     siteName: "Arambh",
     images: [

@@ -18,7 +18,7 @@ export const MAIN_MENU: BotOption[] = [
   {
     label: "Digital Marketing",
     response:
-      "We create performance-driven digital marketing strategies across platforms."
+      "We create performance driven digital marketing strategies across platforms."
   },
   {
     label: "Influencer Marketing",

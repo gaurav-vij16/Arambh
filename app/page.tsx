@@ -11,6 +11,7 @@ import ServiceMain from "./Components/Ui/ServiceMain";
 import GrowthSection from "./Components/Ui/Growth";
 import Contact from "./contact/page";
 import Footer from "./Components/Ui/Footer";
+import CaseStudy from "./Components/Ui/CaseStudy";
 
 export default function Home() {
   return (
@@ -38,6 +39,8 @@ export default function Home() {
         <WebDevService />
         <ServiceMain />
       </section>
+
+      <CaseStudy/>
 
       <section id="contact">
         <Contact />

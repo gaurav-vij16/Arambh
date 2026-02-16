@@ -35,7 +35,7 @@ export default function Footer() {
 
           <p className="text-gray-300 text-sm leading-relaxed max-w-xs mt-5">
             Arambh drives growth with creativity, innovation, and
-            performance-driven digital strategies built for modern brands.
+            performance driven digital strategies built for modern brands.
           </p>
 
           <div className="flex gap-5 text-2xl mt-6">
