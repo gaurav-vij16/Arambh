@@ -40,7 +40,7 @@ export default function Home() {
         <ServiceMain />
       </section>
 
-      <CaseStudy/>
+      {/* <CaseStudy/> */}
 
       <section id="contact">
         <Contact />
