@@ -9,11 +9,16 @@ import tablet from "../../../public/tabletdesign.png";
 import laptop from "../../../public/LaptopBg.png";
 
 export default function WebDevService() {
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState<boolean>(false);
 
   /* Detect screen */
   useEffect(() => {
-    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    const check = () => {
+      if (typeof window !== "undefined") {
+        setIsDesktop(window.innerWidth >= 1024);
+      }
+    };
+
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -26,7 +31,7 @@ export default function WebDevService() {
   useEffect(() => {
     if (!isDesktop) return;
 
-    const move = (e) => {
+    const move = (e: MouseEvent) => {
       mouseX.set(e.clientX - window.innerWidth / 2);
       mouseY.set(e.clientY - window.innerHeight / 2);
     };
@@ -46,13 +51,11 @@ export default function WebDevService() {
 
   return (
     <section className="relative w-full overflow-hidden py-20 md:py-20 bg-white">
-
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-r from-white via-gray-50 to-white" />
       <div className="absolute top-1/3 right-10 w-[420px] h-[420px] bg-blue-100/40 blur-[120px] rounded-full" />
 
       <div className="relative max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-
         {/* LEFT CONTENT */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -81,7 +84,6 @@ export default function WebDevService() {
 
         {/* RIGHT DEVICES */}
         <div className="relative flex justify-center items-end h-[460px] sm:h-[520px] md:h-[580px] lg:h-[620px]">
-
           {/* Glow */}
           <div className="absolute bottom-24 w-[480px] h-[300px] bg-[#06255d]/10 blur-[100px] rounded-full" />
 
@@ -108,19 +110,8 @@ export default function WebDevService() {
             animate={{ y: [0, -8, 0] }}
             className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[360px] sm:w-[480px] md:w-[600px] z-20 drop-shadow-2xl"
           >
-
             {/* VIDEO */}
-            <div
-              className="
-                absolute
-                top-[16.8%]
-                left-[24.5%]
-                w-[52%]
-                h-[49%]
-                rounded-[6px]
-                overflow-hidden
-              "
-            >
+            <div className="absolute top-[16.8%] left-[24.5%] w-[52%] h-[49%] rounded-[6px] overflow-hidden">
               <video
                 src="/Videos/WebDevVideo.mp4"
                 autoPlay
@@ -150,7 +141,6 @@ export default function WebDevService() {
           >
             <Image src={tablet} alt="Tablet UI" className="w-full h-auto" />
           </motion.div>
-
         </div>
       </div>
     </section>
