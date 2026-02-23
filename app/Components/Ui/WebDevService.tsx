@@ -5,8 +5,8 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 
 import phone from "../../../public/MobileWeb1.png";
-import tablet from "../../../public/tabletdesign.png";
-import laptop from "../../../public/LaptopBg.png";
+import tablet from "../../../public/TabletImg .png";
+import laptop from "../../../public/LaptopBg1.png";
 
 export default function WebDevService() {
   const [isDesktop, setIsDesktop] = useState<boolean>(false);
@@ -50,12 +50,12 @@ export default function WebDevService() {
   const tabletY = useTransform(mouseY, [-300, 300], [-10, 10]);
 
   return (
-    <section className="relative w-full overflow-hidden py-20 md:py-20 bg-white">
+    <section className="relative w-full overflow-hidden py-20 bg-white">
       <div className="absolute inset-0 bg-gradient-to-r from-white via-gray-50 to-white" />
       <div className="absolute top-1/3 right-10 w-[420px] h-[420px] bg-blue-100/40 blur-[120px] rounded-full" />
 
       <div className="relative max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-        
+
         {/* LEFT CONTENT */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -77,14 +77,13 @@ export default function WebDevService() {
             experiences that help modern brands grow faster.
           </p>
 
-          <button className="px-14 md:px-18 py-5 rounded-full bg-[#f5c842] text-[#06255d] text-lg md:text-xl font-semibold shadow-[0_20px_50px_rgba(245,200,66,0.45)] transition-all duration-300 hover:bg-[#06255d] hover:text-white hover:scale-105">
+          <button className="px-14 py-5 rounded-full bg-[#f5c842] text-[#06255d] text-lg font-semibold shadow-[0_20px_50px_rgba(245,200,66,0.45)] transition-all duration-300 hover:bg-[#06255d] hover:text-white hover:scale-105">
             Explore Services
           </button>
         </motion.div>
 
         {/* RIGHT DEVICES */}
-        <div className="relative flex justify-center items-end h-[460px] sm:h-[520px] md:h-[580px] lg:h-[620px]">
-          <div className="absolute bottom-24 w-[480px] h-[300px] bg-[#06255d]/10 blur-[100px] rounded-full" />
+        <div className="relative flex justify-center items-end h-[520px] lg:h-[620px]">
 
           {/* MOBILE */}
           <motion.div
@@ -94,12 +93,12 @@ export default function WebDevService() {
             viewport={{ once: true }}
             style={isDesktop ? { x: phoneX, y: phoneY } : {}}
             animate={{ y: [0, -10, 0] }}
-            className="absolute bottom-16 left-[-40px] w-[150px] sm:w-[180px] md:w-[210px] z-30 drop-shadow-2xl"
+            className="absolute bottom-8 left-[-30px] w-[180px] z-30 drop-shadow-2xl"
           >
-            <Image src={phone} alt="Mobile App" className="w-full h-auto" />
+            <Image src={phone} alt="Mobile App" className="w-[] h-auto" />
           </motion.div>
 
-          {/* LAPTOP */}
+          {/* LAPTOP (No Video Now) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -107,10 +106,37 @@ export default function WebDevService() {
             viewport={{ once: true }}
             style={isDesktop ? { x: laptopX, y: laptopY } : {}}
             animate={{ y: [0, -8, 0] }}
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[360px] sm:w-[480px] md:w-[600px] z-20 drop-shadow-2xl"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] z-20 drop-shadow-2xl"
           >
-            {/* CLOUDINARY VIDEO */}
-            <div className="absolute top-[16.8%] left-[24.5%] w-[52%] h-[49%] rounded-[6px] overflow-hidden">
+            <Image
+              src={laptop}
+              alt="Laptop Website"
+              className="w-full h-auto pointer-events-none"
+            />
+          </motion.div>
+
+          {/* TABLET (Video Inside Here Now) */}
+          <motion.div
+            initial={{ opacity: 0, x: 100, scale: 0.95 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            viewport={{ once: true }}
+            style={isDesktop ? { x: tabletX, y: tabletY } : {}}
+            animate={{ y: [0, -8, 0] }}
+            className="absolute 
+           bottom-22 
+           left-[60%] 
+           w-[340px] lg:w-[420px] 
+           z-10 drop-shadow-2xl"
+          >
+
+            {/* TABLET SCREEN VIDEO */}
+            <div className="absolute 
+                  top-[10.3%] 
+                  left-[22.5%] 
+                  w-[55%] 
+                  h-[77%] 
+                  overflow-hidden">
               <video
                 autoPlay
                 loop
@@ -127,23 +153,10 @@ export default function WebDevService() {
             </div>
 
             <Image
-              src={laptop}
-              alt="Laptop Website"
+              src={tablet}
+              alt="Tablet UI"
               className="w-full h-auto pointer-events-none"
             />
-          </motion.div>
-
-          {/* TABLET */}
-          <motion.div
-            initial={{ opacity: 0, x: 100, scale: 0.9 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            viewport={{ once: true }}
-            style={isDesktop ? { x: tabletX, y: tabletY } : {}}
-            animate={{ y: [0, -7, 0] }}
-            className="absolute bottom-24 right-[-40px] sm:right-[-120px] w-[220px] sm:w-[260px] md:w-[300px] z-10 drop-shadow-2xl"
-          >
-            <Image src={tablet} alt="Tablet UI" className="w-full h-auto" />
           </motion.div>
         </div>
       </div>
